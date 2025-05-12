@@ -1,0 +1,25 @@
+minimum_cumulusci_version: '4.4.0'
+project:
+    name: VSCodeDemo
+    package:
+        name: VSCodeDemo
+        api_version: '63.0'
+    git:
+        default_branch: 'main'
+    source_format: sfdx
+
+tasks:
+    robot:
+        options:
+            suites: robot/VSCodeDemo/tests
+            options:
+                outputdir: robot/VSCodeDemo/results
+
+    robot_testdoc:
+        options:
+            path: robot/VSCodeDemo/tests
+            output: robot/VSCodeDemo/doc/VSCodeDemo_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75
