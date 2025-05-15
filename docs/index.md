@@ -1,4 +1,28 @@
-# Using VS Code with Salesforce
+# Using VS Code, Github, and Cumulus CI for Salesforce Development
+
+Using an Code IDE of your choice and Cumulus CI will enable you to run the full lifecycle of Salesforce development:
+
+- Configure a scratch Salesforce org with everything needed for you project to function
+- Install dependent apps and repositories needed for you project
+- Track declarative changes in a scratch org and move them to a repository
+- Build datasets (both real and fake) to seed your scratch orgs
+- Package you project both unmanaged and managed for deployment
+- Deploy code to any org
+- Make your repository the source of truth for changes and development
+
+## Required Installations
+
+The following need to be installed on your computer in order to successfully develop using Cumulus CI:
+
+- [Salesforce Command Line Interface (Salesforce CLI)](https://developer.salesforce.com/tools/salesforcecli)
+- [Git](https://git-scm.com/)
+- [GitHub desktop (optional)](https://desktop.github.com/download/)
+- [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
+  - [Install the Salesforce.org Open Source Commons Extension Pack](https://marketplace.visualstudio.com/items?itemName=SalesforceOrgOpenSourceCommons.open-source-commons)
+- An pro-level alternate to Visual Studio Code:
+  - [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+  - [Illuminated Cloud 2 plugin for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/10253-illuminated-cloud-2)
+
 
 ## Starting a blank git project directory
 
