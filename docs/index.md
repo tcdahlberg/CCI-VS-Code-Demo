@@ -23,7 +23,6 @@ The following need to be installed on your computer in order to successfully dev
   - [IntelliJ IDEA](https://www.jetbrains.com/idea/)
   - [Illuminated Cloud 2 plugin for IntelliJ IDEA](https://plugins.jetbrains.com/plugin/10253-illuminated-cloud-2)
 
-
 ## Starting a blank git project directory
 
 - Create an empty folder on you computer
@@ -143,4 +142,3 @@ To deploy your whole code base to the scratch org run the following command:
 ```bash
 cci task run deploy --path force-app\main\default
 ```
-
