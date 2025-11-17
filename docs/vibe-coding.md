@@ -1,35 +1,45 @@
-# Vibe Coding
+# Agentic Coding with Salesforce MCP, IntelliJ IDEA, Illuminated Cloud, and GitHub Copilot
 
 This is a setup for agentic coding using Salesforce Model Context Protocol (MCP), IntelliJ IDEA with the Illuminated Cloud plugin, GitHub Copilot with intelliJ plugin, and Salesforce CLI.
 
+1. **Install Git**
+Download and install Git from the official website: https://git-scm.com/
 
-Install Node.js
+1. **Install Node.js**
+Download and install Node.js from the official website: https://nodejs.org/
 
-Install Salesforce Command Line Interface (CLI)
+2. **Install GitHub CLI**
+Follow the instructions on the official GitHub CLI installation page: https://cli.github.com/manual/
 
-```bash
-npm install --global @salesforce/mcp
-```
+1. Install Salesforce Command Line Interface (CLI)
 
-Install Salesforce Model Context Protocol
+    ```bash
+    npm install --global @salesforce/cli
+    ```
+    
+    Update Salesforce CLI periodically
+    
+    ```bash
+    npm update --global @salesforce/cli
+    ```
 
-```bash
-pip install --upgrade setuptools pip
-```
+2. Install Salesforce Model Context Protocol (as above swap install with update to keep your mcp up to date)
 
-Switch install with update to periodically update these package
+    ```bash
+    npm install --global @salesforce/mcp
+    ```
 
-Update SF CLI plugins periodically
+3. Update SF CLI plugins periodically
 
-```bash
-sf plugins:install @salesforce/plugin-name@latest
-```
-
-or
-
-```bash
-sf plugins update
-```
+    ```bash
+    sf plugins:install @salesforce/plugin-name@latest
+    ```
+    
+    or to update
+    
+    ```bash
+    sf plugins update
+    ```
 
 Install IntelliJ IDEA
 Download and install IntelliJ IDEA from the official JetBrains website: https://www.jetbrains.com/idea/download/
