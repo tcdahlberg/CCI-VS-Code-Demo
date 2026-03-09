@@ -127,6 +127,29 @@ rg "pattern" *.css
 rg "Header__" --type css
 ```
 
+### jq - JSON Processor
+**Install:**
+```bash
+# Windows (Chocolatey)
+choco install jq
+
+# Or download from: https://jqlang.org/download/
+```
+
+**Usage:**
+```bash
+# Pretty-print JSON
+Get-Content ai-logs/cov.json | jq .
+
+# Extract a nested value
+Get-Content ai-logs/cov.json | jq ".result.summary"
+```
+
+**What it does:**
+- Formats JSON output for easier reading
+- Filters and extracts specific fields from large JSON payloads
+- Makes `sf --result-format json` output easier to inspect and script
+
 ### tokei - Code Statistics
 **Install:**
 ```bash
@@ -165,7 +188,7 @@ pip install playwright
 playwright install chromium
 
 # Optional tools (Windows with Chocolatey)
-choco install fd bat ripgrep tokei
+choco install fd bat ripgrep jq tokei
 ```
 
 ---
@@ -185,6 +208,7 @@ pip show playwright    # Should show package info
 fd --version
 bat --version
 rg --version
+jq --version
 tokei --version
 ```
 
@@ -216,9 +240,9 @@ If all commands succeed, you're ready to go!
 - **PurgeCSS (node_modules):** ~50 MB
 - **Python:** ~100 MB
 - **Playwright + Chromium:** ~500 MB
-- **Optional tools:** ~20 MB
+- **Optional tools:** ~25 MB
 
-**Total:** ~720 MB
+**Total:** ~725 MB
 
 ---
 
@@ -237,7 +261,7 @@ playwright install chromium
 
 ### Update Optional Tools:
 ```bash
-choco upgrade fd bat ripgrep tokei
+choco upgrade fd bat ripgrep jq tokei
 ```
 
 ---
@@ -278,10 +302,10 @@ playwright install chromium
 - fd: https://github.com/sharkdp/fd
 - bat: https://github.com/sharkdp/bat
 - ripgrep: https://github.com/BurntSushi/ripgrep
+- jq: https://jqlang.org/manual/
 - tokei: https://github.com/XAMPPRocky/tokei
 
 ---
 
-**Last Updated:** December 3, 2025  
-**Status:** All tools verified and working
-
+**Last Updated:** March 9, 2026  
+**Status:** All listed tools verified and working
