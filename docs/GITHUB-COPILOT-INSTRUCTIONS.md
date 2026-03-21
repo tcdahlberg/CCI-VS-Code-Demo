@@ -9,7 +9,7 @@
 ## Environment & Tools
 - Windows + PowerShell (use PowerShell syntax, NOT cmd)
 - IntelliJ IDEA + Illuminated Cloud plugin
-- Tools installed: Node.js, Python 3.13, CumulusCI, Salesforce CLI (sf), PurgeCSS, Playwright, fd, bat, ripgrep, tokei, jq
+- Tools installed: Node.js, Python 3.13, CumulusCI, Salesforce CLI (sf), PurgeCSS, Playwright, BackstopJS, fd, bat, ripgrep, tokei, jq
 
 ## Key Commands
 - Salesforce: `cci org list`, `cci org info`
@@ -42,8 +42,77 @@
 - Salesforce orgs: Use CumulusCI (cci) commands
 - CSS extraction: Use PurgeCSS (84.5% reduction, 0 differences)
 - Avoid: Manual regex extraction (failed with 58 differences)
-- Browser testing: Use Playwright
+- Browser testing: Use Playwright or BackstopJS
 - File operations: PowerShell-native commands only
+
+## BackstopJS — Visual Comparison (VF vs LWC)
+BackstopJS (`backstopjs` — globally installed) uses Playwright under the hood to capture screenshots and generate side-by-side pixel-diff HTML reports. Use this when building LWC replacements for Visualforce pages to visually verify parity.
+
+### Key Commands
+```powershell
+backstop init              # Generate backstop.json in project root (first time only)
+backstop reference         # Capture VF pages as ground-truth reference screenshots
+backstop test              # Capture LWC pages and diff against reference
+backstop approve           # Promote test screenshots to new reference (when diff is intentional)
+backstop openReport        # Open the HTML diff report in browser
+```
+
+### Config Location
+- Config file: `backstop.json` in project root
+- Output goes to: `ai-logs/backstop/` (gitignored)
+  - `ai-logs/backstop/reference/` — VF screenshots (ground truth)
+  - `ai-logs/backstop/test/` — LWC screenshots (current build)
+  - `ai-logs/backstop/html_report/` — diff report
+
+### backstop.json Template
+```json
+{
+  "id": "vf-vs-lwc",
+  "viewports": [
+    { "label": "desktop", "width": 1280, "height": 900 },
+    { "label": "mobile", "width": 375, "height": 812 }
+  ],
+  "scenarios": [
+    {
+      "label": "Register Page",
+      "referenceUrl": "https://<scratch-org>/apex/SummitEventsRegister?instanceId=<id>",
+      "url":          "https://<scratch-org>/s/register?instanceId=<id>",
+      "delay": 1500,
+      "misMatchThreshold": 5.0
+    }
+  ],
+  "paths": {
+    "bitmaps_reference": "ai-logs/backstop/reference",
+    "bitmaps_test":      "ai-logs/backstop/test",
+    "html_report":       "ai-logs/backstop/html_report",
+    "engine_scripts":    "ai-logs/backstop/engine_scripts"
+  },
+  "engine": "playwright",
+  "engineOptions": { "browser": "chromium" },
+  "report": ["browser"]
+}
+```
+
+### Authentication
+Scratch orgs require login. Use a `onBefore.js` engine script:
+```javascript
+// ai-logs/backstop/engine_scripts/onBefore.js
+module.exports = async (page, scenario, vp) => {
+  await page.goto('https://<scratch-org>/login');
+  await page.fill('#username', process.env.SF_USERNAME);
+  await page.fill('#password', process.env.SF_PASSWORD);
+  await page.click('#Login');
+  await page.waitForNavigation();
+};
+```
+Reference in each scenario: `"onBeforeScript": "onBefore.js"`
+
+### Workflow for VF → LWC Migration
+1. Deploy VF pages to scratch org, run `backstop reference` to capture ground truth
+2. Build LWC equivalent, deploy it
+3. Run `backstop test` — review HTML report for layout/content parity
+4. Fix gaps in LWC, repeat until diff % is at or near 0
+5. Run `backstop approve` when intentional design improvements are accepted as new baseline
 
 ## LWC Development (Proven Patterns)
 - **Reactivity**: NEVER mutate nested objects/arrays directly
@@ -170,14 +239,14 @@ Standard parse script template:
 ```python
 import json
 with open('ai-logs/code-analyzer.json', encoding='utf-8') as f:
-    data = json.load(f)
+  data = json.load(f)
 high = [v for v in data['violations'] if v['severity'] <= 2]
 print(f"High/Critical: {len(high)}")
 for v in high:
-    loc = v['locations'][0]
-    fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
-    print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
-    print(f"    {v['message'][:120]}")
+  loc = v['locations'][0]
+  fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
+  print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
+  print(f"    {v['message'][:120]}")
 ```
 
 ### Fix Priority
