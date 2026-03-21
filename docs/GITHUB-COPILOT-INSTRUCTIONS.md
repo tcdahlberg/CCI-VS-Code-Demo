@@ -9,12 +9,13 @@
 ## Environment & Tools
 - Windows + PowerShell (use PowerShell syntax, NOT cmd)
 - IntelliJ IDEA + Illuminated Cloud plugin
-- Tools installed: Node.js, Python 3.13, CumulusCI, Salesforce CLI (sf), PurgeCSS, Playwright, fd, bat, ripgrep, tokei, **jq**
+- Tools installed: Node.js, Python 3.13, CumulusCI, Salesforce CLI (sf), PurgeCSS, Playwright, fd, bat, ripgrep, tokei, jq
 
 ## Key Commands
 - Salesforce: `cci org list`, `cci org info`
 - **Targeted Deploy**: `cci task run deploy --path force-app/main/default/lwc --org dev`
 - **NEVER** use `cci flow run dev_org` for incremental changes (rebuilds entire org!)
+- **Code Analysis**: `sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --output-file ai-logs/code-analyzer.html`
 - **Testing (LWC)**: `npm test` (runs Jest tests), `npm test -- --coverage` (with coverage)
 - **Testing (Apex)**:
   - **CumulusCI (preferred)**: `cci task run run_tests --org dev` (uses org alias "dev")
@@ -142,6 +143,66 @@
   - With CumulusCI: `sf data query --query "SELECT Id, NewField__c FROM Object__c LIMIT 1" --target-org {ProjectName}__dev`
   - Replace `{ProjectName}` with `project.name` from cumulusci.yml
 - **Document manual steps**: If manual creation required, note it for future deploys
+
+## Salesforce Code Analyzer ⚠️
+- **Config file**: `code-analyzer.yml` in project root (auto-applied when running from root)
+- **ESLint config**: Set `eslint_config_file: "eslint.config.js"` in `code-analyzer.yml` to use project ESLint config
+
+### Running the Analyzer
+```powershell
+# Full scan — save JSON + HTML, fail on Moderate or higher
+sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --output-file ai-logs/code-analyzer.html --severity-threshold 3 2>&1 | Out-File ai-logs/ca-run.txt
+
+# High/Critical only — faster feedback loop
+sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --severity-threshold 2 2>&1 | Out-File ai-logs/ca-run.txt
+
+# Read summary line from run log
+Get-Content ai-logs/ca-run.txt | Select-Object -Last 20
+```
+
+### Parsing Results
+PowerShell and jq have encoding issues with Code Analyzer JSON output. **Always use Python**:
+```powershell
+# Use ai-logs/parse_violations.py (reuse/update this file):
+python ai-logs/parse_violations.py > ai-logs/parse-out.txt 2>&1; type ai-logs/parse-out.txt
+```
+Standard parse script template:
+```python
+import json
+with open('ai-logs/code-analyzer.json', encoding='utf-8') as f:
+    data = json.load(f)
+high = [v for v in data['violations'] if v['severity'] <= 2]
+print(f"High/Critical: {len(high)}")
+for v in high:
+    loc = v['locations'][0]
+    fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
+    print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
+    print(f"    {v['message'][:120]}")
+```
+
+### Fix Priority
+1. **Critical (sev1)** — Fix immediately unless it's `UninstantiableEngineError` (tooling conflict, not code)
+2. **High (sev2)** — Fix all; mostly security issues (`ApexCRUDViolation`, `ApexSOQLInjection`, JS `no-dupe-class-members`, `no-prototype-builtins`)
+3. **Moderate (sev3)** — Fix where practical; skip complexity/naming if refactor is too risky
+4. **Low (sev4) / Info (sev5)** — Optional; `AvoidDebugStatements` and `ApexDoc` are noise for dev orgs
+
+### Apex Fix Patterns (High severity)
+- **`ApexCRUDViolation`** — Add `WITH USER_MODE` to inline SOQL, or `WITH SECURITY_ENFORCED`; for DML add `if (!Schema.sObjectType.MyObj__c.isCreateable/isUpdateable()) throw new AuraHandledException(...)`
+  - ⚠️ **`WITH USER_MODE` must come BEFORE `ORDER BY`, `LIMIT`, and `OFFSET`** — appending it to the end of a complete query string causes `System.QueryException: unexpected token: 'WITH'`
+  - ✅ `query_string += ' WITH USER_MODE ORDER BY Name LIMIT 50'`
+  - ❌ `Database.query(query_string + ' WITH USER_MODE')` when query_string already has ORDER BY/LIMIT
+- **`ApexSOQLInjection`** — Replace string concatenation with `String.escapeSingleQuotes(param)` before concat, OR extract to local variable and use `:localVar` bind
+- **Never** add `WITH USER_MODE` to queries inside `@TestVisible` or test classes
+
+### LWC/JS Fix Patterns (High severity)
+- **`no-unused-vars`** — Remove unused parameter or prefix with `_` if required by interface
+- **`no-dupe-class-members`** — Keep the better implementation (more error handling / null checks), delete the duplicate
+- **`no-prototype-builtins`** — Replace `obj.hasOwnProperty(key)` → `Object.prototype.hasOwnProperty.call(obj, key)`
+
+### Known Non-Fixable / Acceptable Items
+- **`UninstantiableEngineError` (eslint, sev1)** — ESLint version mismatch between Code Analyzer and project; not a code bug; disable ESLint in `code-analyzer.yml` if it blocks CI: `disable_engine: true` under `engines.eslint`
+- **`CyclomaticComplexity` / `CognitiveComplexity`** — Large controllers like `rfiFormController` legitimately exceed thresholds; refactoring is a separate task, not a quick fix
+- **`AvoidDebugStatements`** — Development debug statements; suppress in `code-analyzer.yml` or clean up before production release
 
 ## When Starting
 1. Check for `cumulusci.yml` or `sfdx-project.json` (Salesforce project)
