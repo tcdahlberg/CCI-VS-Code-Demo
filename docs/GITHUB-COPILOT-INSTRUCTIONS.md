@@ -1,5 +1,12 @@
 # Concise AI Instructions for IntelliJ
 
+## ⚠️ Maintaining These Instructions
+These instructions apply across ALL projects. When adding or updating content here:
+- **Keep everything project-agnostic** — no project names, org aliases, object/field names, or URLs specific to any one project
+- **Use placeholders** like `{ProjectName}`, `<host>`, `MyObject__c` instead of real values
+- **Project-specific context belongs in `docs/AI-TOOLS-CONFIG.md`** within that project's repo — reference it from here, never inline it here
+- If you find yourself writing something only true for one project, put it in that project's `AI-TOOLS-CONFIG.md` instead
+
 ## Primary Work: Salesforce Development
 - **Build Tool:** CumulusCI (cci) - Python CLI for Salesforce
 - **Org Type:** Scratch orgs (not production)
@@ -21,7 +28,7 @@
   - **CumulusCI (preferred)**: `cci task run run_tests --org dev` (uses org alias "dev")
   - **SF CLI**: `sf apex run test --target-org <ProjectName>__dev` (different org name!)
   - **Org naming**: CumulusCI uses `dev`, SF CLI uses `{project.name}__dev` from cumulusci.yml
-  - **Get project name**: Check `project.name` in cumulusci.yml (e.g., `UST-Salesforce-RFI__dev`)
+  - **Get project name**: Check `project.name` in cumulusci.yml
 - Use `Remove-Item -Force` NOT `del /Q`
 - File search: `fd "pattern"`, `rg "text"`
 - Code stats: `tokei`
@@ -40,19 +47,19 @@
 
 ## Proven Solutions
 - Salesforce orgs: Use CumulusCI (cci) commands
-- CSS extraction: Use PurgeCSS (84.5% reduction, 0 differences)
-- Avoid: Manual regex extraction (failed with 58 differences)
+- CSS extraction: Use PurgeCSS (significant reduction, verified zero differences vs manual regex)
+- Avoid: Manual regex CSS extraction (error-prone)
 - Browser testing: Use Playwright or BackstopJS
 - File operations: PowerShell-native commands only
 
-## BackstopJS — Visual Comparison (VF vs LWC)
-BackstopJS (`backstopjs` — globally installed) uses Playwright under the hood to capture screenshots and generate side-by-side pixel-diff HTML reports. Use this when building LWC replacements for Visualforce pages to visually verify parity.
+## BackstopJS — Visual Comparison (e.g. VF vs LWC)
+BackstopJS (`backstopjs` — globally installed) uses Playwright under the hood to capture screenshots and generate side-by-side pixel-diff HTML reports. Use this to verify visual parity between two versions of a page (e.g. a Visualforce original vs its LWC replacement).
 
 ### Key Commands
 ```powershell
 backstop init              # Generate backstop.json in project root (first time only)
-backstop reference         # Capture VF pages as ground-truth reference screenshots
-backstop test              # Capture LWC pages and diff against reference
+backstop reference         # Capture reference screenshots (ground truth)
+backstop test              # Capture test screenshots and diff against reference
 backstop approve           # Promote test screenshots to new reference (when diff is intentional)
 backstop openReport        # Open the HTML diff report in browser
 ```
@@ -60,23 +67,23 @@ backstop openReport        # Open the HTML diff report in browser
 ### Config Location
 - Config file: `backstop.json` in project root
 - Output goes to: `ai-logs/backstop/` (gitignored)
-  - `ai-logs/backstop/reference/` — VF screenshots (ground truth)
-  - `ai-logs/backstop/test/` — LWC screenshots (current build)
+  - `ai-logs/backstop/reference/` — ground-truth screenshots
+  - `ai-logs/backstop/test/` — current build screenshots
   - `ai-logs/backstop/html_report/` — diff report
 
 ### backstop.json Template
 ```json
 {
-  "id": "vf-vs-lwc",
+  "id": "reference-vs-new",
   "viewports": [
     { "label": "desktop", "width": 1280, "height": 900 },
     { "label": "mobile", "width": 375, "height": 812 }
   ],
   "scenarios": [
     {
-      "label": "Register Page",
-      "referenceUrl": "https://<scratch-org>/apex/SummitEventsRegister?instanceId=<id>",
-      "url":          "https://<scratch-org>/s/register?instanceId=<id>",
+      "label": "Page Name",
+      "referenceUrl": "https://<host>/reference-page-url",
+      "url":          "https://<host>/new-page-url",
       "delay": 1500,
       "misMatchThreshold": 5.0
     }
@@ -94,24 +101,29 @@ backstop openReport        # Open the HTML diff report in browser
 ```
 
 ### Authentication
-Scratch orgs require login. Use a `onBefore.js` engine script:
+Whether a login script is needed depends on the project. Check `docs/AI-TOOLS-CONFIG.md` for the project's access model (some pages are public/guest-accessible; others require authentication).
+
+If authentication is required, use an `onBefore.js` engine script:
 ```javascript
 // ai-logs/backstop/engine_scripts/onBefore.js
 module.exports = async (page, scenario, vp) => {
-  await page.goto('https://<scratch-org>/login');
+  await page.goto('https://<host>/login');
   await page.fill('#username', process.env.SF_USERNAME);
   await page.fill('#password', process.env.SF_PASSWORD);
   await page.click('#Login');
   await page.waitForNavigation();
 };
 ```
-Reference in each scenario: `"onBeforeScript": "onBefore.js"`
+Reference in each scenario that needs it: `"onBeforeScript": "onBefore.js"`
 
-### Workflow for VF → LWC Migration
-1. Deploy VF pages to scratch org, run `backstop reference` to capture ground truth
-2. Build LWC equivalent, deploy it
+### Scratch Org Test Data
+Scratch orgs may contain pre-defined sample data at varying configurations. Not all records will activate all pages/features. Check `docs/AI-TOOLS-CONFIG.md` for project-specific guidance on which records to use for full coverage.
+
+### Workflow for Page-to-Page Migration
+1. Deploy or access the reference version, run `backstop reference` to capture ground truth
+2. Build the new version, deploy it
 3. Run `backstop test` — review HTML report for layout/content parity
-4. Fix gaps in LWC, repeat until diff % is at or near 0
+4. Fix gaps, repeat until diff % is at or near 0
 5. Run `backstop approve` when intentional design improvements are accepted as new baseline
 
 ## LWC Development (Proven Patterns)
@@ -154,7 +166,7 @@ Reference in each scenario: `"onBeforeScript": "onBefore.js"`
 - **⚠️ CRITICAL ORG NAMING**:
   - CumulusCI commands: Use `--org dev` (alias)
   - SF CLI commands: Use `--target-org {project.name}__dev` (full name from cumulusci.yml)
-  - Example: For project `UST-Salesforce-RFI`, use `--target-org UST-Salesforce-RFI__dev`
+  - Example: For project `My-Project`, use `--target-org My-Project__dev`
 - **Preferred: Use SF CLI** for running individual test classes (more reliable):
   - Run specific test: `sf apex run test --class-names ClassName_TEST --target-org {ProjectName}__dev --result-format human --code-coverage --wait 10`
   - Run multiple tests: `sf apex run test --class-names Test1,Test2,Test3 --target-org {ProjectName}__dev --result-format human --code-coverage --wait 10`
@@ -175,12 +187,9 @@ Reference in each scenario: `"onBeforeScript": "onBefore.js"`
   # Get coverage for all classes (with percentage calculation)
   sf data query --query "SELECT ApexClassOrTrigger.Name, NumLinesCovered, NumLinesUncovered FROM ApexCodeCoverageAggregate WHERE NumLinesCovered + NumLinesUncovered > 0 ORDER BY ApexClassOrTrigger.Name" --target-org {ProjectName}__dev --use-tooling-api --result-format json
   
-  # Get coverage for specific classes (e.g., UPay classes)
-  sf data query --query "SELECT ApexClassOrTrigger.Name, NumLinesCovered, NumLinesUncovered FROM ApexCodeCoverageAggregate WHERE ApexClassOrTrigger.Name LIKE 'UPay%'" --target-org {ProjectName}__dev --use-tooling-api --result-format json
-  
   # Calculate coverage: (NumLinesCovered / (NumLinesCovered + NumLinesUncovered)) * 100
   ```
-- **IMPORTANT**: Replace `{ProjectName}` with `project.name` from cumulusci.yml (e.g., `Summit-Events-App-Touchnet-UPay__dev`)
+- **IMPORTANT**: Replace `{ProjectName}__dev` with the `sfdx_alias` from `cci org info --org dev`
 - **Pro tip**: Use `--result-format json` for parseable output (table/human formats may be empty in PowerShell)
 - **Coverage formula**: `(NumLinesCovered / (NumLinesCovered + NumLinesUncovered)) * 100 = Coverage %`
 - **Example**: 126 covered / (126 + 14 uncovered) = 126/140 = 90% coverage
@@ -191,11 +200,11 @@ Reference in each scenario: `"onBeforeScript": "onBefore.js"`
 - **Coverage queries fail**: Use `--use-tooling-api` flag (ApexCodeCoverageAggregate is in Tooling API, not Data API)
 - **Blank table/human output in PowerShell**: Use `--result-format json` instead for reliable output
 - **Picklist value errors in tests**:
-  - ❌ `summit__Template__c = 'Standard'` fails if value doesn't exist in org
+  - ❌ `MyField__c = 'SomeValue'` fails if value doesn't exist in org
   - ✅ Use actual picklist values from your org or make field non-restricted
   - **Country fields**: Use full country names or 2-letter codes that exist in org (e.g., 'United States' or skip field)
 - **Encryption key length**: Must be exactly 32 bytes for AES256 (use in test setup)
-  - Example: `summit__Cookie_Encryption_Key__c = '12345678901234567890123456789012'`
+  - Example: `Encryption_Key__c = '12345678901234567890123456789012'`
 - **Date parsing**: Use locale-aware format in tests or catch exceptions
   - `Date.parse('02/12/2026')` format depends on user locale
 - **Test data isolation**: Always use `@TestSetup` for shared test data to improve performance
@@ -239,14 +248,14 @@ Standard parse script template:
 ```python
 import json
 with open('ai-logs/code-analyzer.json', encoding='utf-8') as f:
-  data = json.load(f)
+    data = json.load(f)
 high = [v for v in data['violations'] if v['severity'] <= 2]
 print(f"High/Critical: {len(high)}")
 for v in high:
-  loc = v['locations'][0]
-  fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
-  print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
-  print(f"    {v['message'][:120]}")
+    loc = v['locations'][0]
+    fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
+    print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
+    print(f"    {v['message'][:120]}")
 ```
 
 ### Fix Priority
@@ -270,7 +279,7 @@ for v in high:
 
 ### Known Non-Fixable / Acceptable Items
 - **`UninstantiableEngineError` (eslint, sev1)** — ESLint version mismatch between Code Analyzer and project; not a code bug; disable ESLint in `code-analyzer.yml` if it blocks CI: `disable_engine: true` under `engines.eslint`
-- **`CyclomaticComplexity` / `CognitiveComplexity`** — Large controllers like `rfiFormController` legitimately exceed thresholds; refactoring is a separate task, not a quick fix
+- **`CyclomaticComplexity` / `CognitiveComplexity`** — Large controllers legitimately exceed thresholds; refactoring is a separate task, not a quick fix
 - **`AvoidDebugStatements`** — Development debug statements; suppress in `code-analyzer.yml` or clean up before production release
 
 ## When Starting
@@ -325,8 +334,8 @@ When starting work on a project and needing to know the correct SF CLI `--target
    ```powershell
    cci org info --org dev 2>&1 | Tee-Object ai-logs/orginfo.txt; Get-Content ai-logs/orginfo.txt
    ```
-   Look for: `sfdx_alias   UST-Salesforce-RFI__dev`
-3. **Rule**: CumulusCI always uses `--org dev`; SF CLI always uses the `sfdx_alias` value (e.g. `UST-Salesforce-RFI__dev`)
+   Look for: `sfdx_alias   {ProjectName}__dev`
+3. **Rule**: CumulusCI always uses `--org dev`; SF CLI always uses the `sfdx_alias` value (e.g. `{ProjectName}__dev`)
 4. **Do NOT guess** the SF CLI alias from the project name alone — the format is `{sfdx-project.json "name"}__dev` but confirm via `cci org info`
 
 ## Querying the Org with Anonymous Apex (Happy Path) ⚠️
@@ -340,7 +349,7 @@ When starting work on a project and needing to know the correct SF CLI `--target
    ```
 2. **Run it with `sf apex run --file`** and capture via `Tee-Object`:
    ```powershell
-   sf apex run --target-org UST-Salesforce-RFI__dev --file ai-logs/check_something.apex 2>&1 | Tee-Object ai-logs/anon_out.txt
+   sf apex run --target-org {ProjectName}__dev --file ai-logs/check_something.apex 2>&1 | Tee-Object ai-logs/anon_out.txt
    ```
 3. **Read the output file** — debug lines appear as `USER_DEBUG[N]DEBUG<value>`:
    ```
@@ -351,7 +360,7 @@ When starting work on a project and needing to know the correct SF CLI `--target
 **For Tooling API queries specifically** (e.g. `ApexCodeCoverageAggregate`, picklist metadata):
 ```powershell
 # ✅ Only reliable pattern — use --use-tooling-api flag:
-sf data query --query "SELECT ..." --target-org UST-Salesforce-RFI__dev --use-tooling-api --result-format json 2>&1 | Tee-Object ai-logs/tooling.json
+sf data query --query "SELECT ..." --target-org {ProjectName}__dev --use-tooling-api --result-format json 2>&1 | Tee-Object ai-logs/tooling.json
 # Then read_file ai-logs/tooling.json
 ```
 
