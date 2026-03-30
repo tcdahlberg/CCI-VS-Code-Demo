@@ -151,6 +151,51 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
   - Drag-drop: HTML5 Drag API + arrow button fallback for accessibility
   - Drag-drop reorder: After removing item, use target index directly for insert
   - Toast: `ShowToastEvent` for all user feedback (not console.log)
+- **`lightning-spinner` is `position: fixed`** — it covers the **entire viewport** regardless of where it's placed in the DOM; never use it for scoped/inline loading states
+  - ❌ `<lightning-spinner>` inside a panel or modal (covers whole page)
+  - ✅ Use a CSS-only spinner for inline loading:
+    ```css
+    .my-spinner {
+        width: 18px; height: 18px;
+        border-radius: 50%;
+        border: 2.5px solid rgba(0,0,0,0.15);
+        border-top-color: #0070d2;
+        animation: my-spin 0.75s linear infinite;
+    }
+    @keyframes my-spin { to { transform: rotate(360deg); } }
+    ```
+  - Use `lightning-spinner` only for full-page overlays where covering everything is intentional
+
+## Agentforce / Einstein LLM (Prompt Builder)
+- **`additionalConfig.applicationName` is REQUIRED** — without it, `ConnectApi.EinsteinLLM.generateMessagesForPromptTemplate()` silently fails with `"Failed to generate Einstein LLM generations response"`. No other part of the error hints at this.
+  - ✅ Always set before calling:
+    ```apex
+    ptInput.additionalConfig = new ConnectApi.EinsteinLlmAdditionalConfigInput();
+    ptInput.additionalConfig.applicationName = 'PromptBuilderPreview';
+    ```
+- **`isPreview = false` for real calls** — `isPreview = true` returns 0 generations; it's only for the Prompt Builder UI preview mode
+- **Don't build retry loops around AI failures** — persistent "failed to generate" errors almost always mean a missing config parameter, not a transient error. Fix the config first.
+- **Flex Template input key format**: `'Input:VariableName'` (the `Input:` prefix is required)
+  - ✅ `ptInput.inputParams.put('Input:MyContext', wrappedValue);`
+  - ❌ `ptInput.inputParams.put('MyContext', wrappedValue);`
+- **Full working Apex pattern**:
+  ```apex
+  ConnectApi.EinsteinPromptTemplateGenerationsInput ptInput =
+      new ConnectApi.EinsteinPromptTemplateGenerationsInput();
+  ptInput.additionalConfig = new ConnectApi.EinsteinLlmAdditionalConfigInput();
+  ptInput.additionalConfig.applicationName = 'PromptBuilderPreview';
+  ptInput.isPreview = false;
+  ptInput.inputParams = new Map<String, ConnectApi.WrappedValue>();
+
+  ConnectApi.WrappedValue val = new ConnectApi.WrappedValue();
+  val.value = myContextString;
+  ptInput.inputParams.put('Input:MyVariable', val);
+
+  ConnectApi.EinsteinPromptTemplateGenerationsRepresentation result =
+      ConnectApi.EinsteinLLM.generateMessagesForPromptTemplate('MyTemplateName', ptInput);
+  String text = result.generations[0].text;
+  ```
+- **Reference**: https://developer.salesforce.com/workshops/agentforce-workshop/advanced/1-advanced-prompt-template
 
 ## Deployment Strategy
 - **Incremental Changes**:
@@ -222,6 +267,17 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
   - Replace `{ProjectName}` with `project.name` from cumulusci.yml
 - **Document manual steps**: If manual creation required, note it for future deploys
 
+## Flow & Metadata Cleanup Gotcha ⚠️
+- **Cannot delete an Apex class referenced by a flow** until ALL flow versions are removed first
+  - Error: `Can't delete this Apex Class because it's referenced by the "FlowName" flow version 1 ... version 2`
+  - **Fix order**: Delete all flow versions first (Setup → Flows → [Name] → View All Versions → delete each), then run the destructive deploy for the class
+  - Old/inactive flow versions still block deletion — deleting or deactivating the latest version is not enough
+- **Valid flow status values** (Metadata API): Only `Active` and `Draft` are valid — `Inactive` is **NOT** a valid enum value
+  - Use `Draft` to deactivate a flow (not `Inactive`)
+  - `Draft` status in the metadata = flow is inactive/not running in the org
+- **Destructive deploy ordering**: Remove all referencing flows (or all their versions) BEFORE attempting to delete the Apex class
+- **"insufficient access rights on cross-reference id"** during flow deletion via metadata API — this often means the flow still has active/draft versions; delete them from Setup UI first, then retry
+
 ## Salesforce Code Analyzer ⚠️
 - **Config file**: `code-analyzer.yml` in project root (auto-applied when running from root)
 - **ESLint config**: Set `eslint_config_file: "eslint.config.js"` in `code-analyzer.yml` to use project ESLint config
@@ -248,14 +304,14 @@ Standard parse script template:
 ```python
 import json
 with open('ai-logs/code-analyzer.json', encoding='utf-8') as f:
-    data = json.load(f)
+  data = json.load(f)
 high = [v for v in data['violations'] if v['severity'] <= 2]
 print(f"High/Critical: {len(high)}")
 for v in high:
-    loc = v['locations'][0]
-    fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
-    print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
-    print(f"    {v['message'][:120]}")
+  loc = v['locations'][0]
+  fname = loc.get('file', 'N/A').replace('\\', '/').split('/')[-1]
+  print(f"  sev={v['severity']} {v['engine']} {v['rule']} {fname}:{loc.get('startLine','?')}")
+  print(f"    {v['message'][:120]}")
 ```
 
 ### Fix Priority
