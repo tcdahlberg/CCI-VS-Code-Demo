@@ -6,18 +6,18 @@ A guide to what lives in this folder — focused on agentic Salesforce developme
 
 ## 🤖 Agentic Coding
 
-| File | What it covers |
-|------|----------------|
-| [GITHUB-COPILOT-INSTRUCTIONS.md](GITHUB-COPILOT-INSTRUCTIONS.md) | Master AI instructions for GitHub Copilot in IntelliJ — LWC patterns, Apex gotchas, deployment strategy, testing rules, terminal best practices, and more. The primary reference for AI-assisted development on any Salesforce project. |
-| [vibe-coding.md](vibe-coding.md) | How to set up the full agentic coding stack: Git, Node.js, GitHub CLI, Salesforce CLI, Salesforce MCP, IntelliJ IDEA, Illuminated Cloud plugin, and GitHub Copilot plugin. |
+| File                                                                  | What it covers |
+|-----------------------------------------------------------------------|----------------|
+| [GITHUB-COPILOT-INSTRUCTIONS.md](docs/GITHUB-COPILOT-INSTRUCTIONS.md) | Master AI instructions for GitHub Copilot in IntelliJ — LWC patterns, Apex gotchas, deployment strategy, testing rules, terminal best practices, and more. The primary reference for AI-assisted development on any Salesforce project. |
+| [vibe-coding.md](docs/vibe-coding.md)                                 | How to set up the full agentic coding stack: Git, Node.js, GitHub CLI, Salesforce CLI, Salesforce MCP, IntelliJ IDEA, Illuminated Cloud plugin, and GitHub Copilot plugin. |
 
 ---
 
 ## 🛠️ Terminal Tooling
 
-| File | What it covers |
-|------|----------------|
-| [vide-coding-terminal-add-ons.md](vide-coding-terminal-add-ons.md) | Installation and usage guide for all terminal productivity tools: Node.js, PurgeCSS, Python, Playwright, fd, bat, ripgrep, **jq**, BackstopJS, and tokei. Includes a complete install script and verification steps. |
+| File                                                                    | What it covers |
+|-------------------------------------------------------------------------|----------------|
+| [vide-coding-terminal-add-ons.md](docs/vide-coding-terminal-add-ons.md) | Installation and usage guide for all terminal productivity tools: Node.js, PurgeCSS, Python, Playwright, fd, bat, ripgrep, **jq**, BackstopJS, and tokei. Includes a complete install script and verification steps. |
 
 ### Quick Tool Reference
 
@@ -38,20 +38,20 @@ A guide to what lives in this folder — focused on agentic Salesforce developme
 
 ## ☁️ Salesforce Org Setup & Workflows
 
-| File | What it covers |
-|------|----------------|
-| [setup.md](setup.md) | Full project setup walkthrough: installing Salesforce CLI, Git, VS Code/IntelliJ, initializing CumulusCI, connecting to GitHub, spinning up scratch orgs, retrieving and deploying changes. |
-| [cci-in-codebuilder.md](cci-in-codebuilder.md) | Installing and using CumulusCI inside Salesforce **Code Builder** (the browser-based IDE). Covers pip setup, project init, and Dev Hub authentication. |
-| [scratch-org-snapshots.md](scratch-org-snapshots.md) | Creating, listing, deleting, and using SF CLI org **snapshots** to quickly spin up pre-configured scratch orgs. |
-| [unlocked-packages-cci.md](unlocked-packages-cci.md) | Building and promoting **unlocked packages** using CumulusCI — beta release flow, dependency resolution, and promoting to production. |
+| File                                                      | What it covers |
+|-----------------------------------------------------------|----------------|
+| [setup.md](docs/setup.md)                                 | Full project setup walkthrough: installing Salesforce CLI, Git, VS Code/IntelliJ, initializing CumulusCI, connecting to GitHub, spinning up scratch orgs, retrieving and deploying changes. |
+| [cci-in-codebuilder.md](docs/cci-in-codebuilder.md)       | Installing and using CumulusCI inside Salesforce **Code Builder** (the browser-based IDE). Covers pip setup, project init, and Dev Hub authentication. |
+| [scratch-org-snapshots.md](docs/scratch-org-snapshots.md) | Creating, listing, deleting, and using SF CLI org **snapshots** to quickly spin up pre-configured scratch orgs. |
+| [unlocked-packages-cci.md](docs/unlocked-packages-cci.md) | Building and promoting **unlocked packages** using CumulusCI — beta release flow, dependency resolution, and promoting to production. |
 
 ---
 
 ## 🗺️ Where Things Live
 
 ```
+index.md                        ← you are here
 docs/
-├── index.md                        ← you are here
 ├── GITHUB-COPILOT-INSTRUCTIONS.md  ← AI coding rules (global, project-agnostic)
 ├── vibe-coding.md                  ← agentic stack setup
 ├── vide-coding-terminal-add-ons.md ← terminal tool installs
