@@ -45,6 +45,34 @@ These instructions apply across ALL projects. When adding or updating content he
   - Update existing docs rather than creating new ones
   - Use clear naming: MAIN_GUIDE.md, TROUBLESHOOTING.md, etc.
 
+## Code Style Preferences
+- **Always use braces on control-flow statements** — `if`, `else`, `for`, `while`, `for...of`, etc. must always have curly braces, even for single-line bodies. This applies to all languages (Apex, JavaScript, TypeScript).
+  - ❌ `if (condition) doSomething();`
+  - ✅ `if (condition) { doSomething(); }`
+  - ❌ `for (Item i : list) process(i);`
+  - ✅ `for (Item i : list) { process(i); }`
+- **Apex Javadoc comments must be complete** — whenever a method has a `/** ... */` doc comment, it must include all required tags or the Illuminated Cloud linter will warn:
+  - Every **non-void** method requires `@return <description>`
+  - Every **parameter** requires a matching `@param <name> <description>`
+  - If a method has no Javadoc block at all, no tags are required (linter only checks existing blocks)
+  - ✅ Complete example:
+    ```apex
+    /**
+     * Loads the donor summary record.
+     *
+     * @param contactId The Id of the Contact to load
+     * @return Map of summary data keyed by section name
+     */
+    public static Map<String, Object> getSummary(Id contactId) { ... }
+    ```
+  - ❌ Incomplete (triggers linter warning):
+    ```apex
+    /**
+     * Loads the donor summary record.
+     */
+    public static Map<String, Object> getSummary(Id contactId) { ... }
+    ```
+
 ## Proven Solutions
 - Salesforce orgs: Use CumulusCI (cci) commands
 - CSS extraction: Use PurgeCSS (significant reduction, verified zero differences vs manual regex)
@@ -213,9 +241,9 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
   - SF CLI commands: Use `--target-org {project.name}__dev` (full name from cumulusci.yml)
   - Example: For project `My-Project`, use `--target-org My-Project__dev`
 - **Preferred: Use SF CLI** for running individual test classes (more reliable):
-  - Run specific test: `sf apex run test --class-names ClassName_TEST --target-org {ProjectName}__dev --result-format human --code-coverage --wait 10`
-  - Run multiple tests: `sf apex run test --class-names Test1,Test2,Test3 --target-org {ProjectName}__dev --result-format human --code-coverage --wait 10`
-  - **Always add `--wait 10`** to avoid "test already enqueued" errors
+  - Run specific test: `sf apex run test --class-names ClassName_TEST --target-org {ProjectName}__dev --result-format human --code-coverage --wait 20`
+  - Run multiple tests: `sf apex run test --class-names Test1,Test2,Test3 --target-org {ProjectName}__dev --result-format human --code-coverage --wait 20`
+  - **Always add `--wait 20`** to avoid "test already enqueued" errors (some orgs are slow)
   - **Always add `--code-coverage`** to see coverage percentages in output
 - **Alternative: Use CumulusCI** for running all tests (validation/CI):
   - Run all tests: `cci task run run_tests --org dev`
@@ -240,7 +268,7 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
 - **Example**: 126 covered / (126 + 14 uncovered) = 126/140 = 90% coverage
 
 ## Apex Testing Gotchas ⚠️
-- **"Test already enqueued" error**: Always add `--wait 10` to `sf apex run test` commands
+- **"Test already enqueued" error**: Always add `--wait 20` to `sf apex run test` commands (not just 10 — some orgs are slow)
 - **RestRequest.params is final**: Can't assign new map in tests - use `req.addParameter('key', 'value')` instead
 - **Coverage queries fail**: Use `--use-tooling-api` flag (ApexCodeCoverageAggregate is in Tooling API, not Data API)
 - **Blank table/human output in PowerShell**: Use `--result-format json` instead for reliable output
@@ -253,6 +281,8 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
 - **Date parsing**: Use locale-aware format in tests or catch exceptions
   - `Date.parse('02/12/2026')` format depends on user locale
 - **Test data isolation**: Always use `@TestSetup` for shared test data to improve performance
+- **Unicode characters in Apex source files corrupt the compiler** — Box-drawing characters (`──`, `—`, `→`), em-dashes, and other non-ASCII chars in Apex comments or strings cause cascading `"Invalid type"` errors for valid code that follows them. Always use plain ASCII in Apex files: `--` instead of `──`, `-` instead of `—`, `->` instead of `→`. When seeing mysterious "Invalid type" errors on valid types, scan the file for non-ASCII bytes.
+- **Test classes referencing managed package types must deploy to the right org** — The dev scratch org typically does NOT have managed packages installed. A test file that uses `namespace__SObjectType__c` (e.g. `hed__Affiliation__c`, `summit__Summit_Events__c`) will fail to compile on a scratch org with "Invalid type" errors. Always use `sf project deploy start --target-org <staging-alias>` for test classes that reference managed package types. Do NOT use `cci task run deploy --org dev` as the compile-check target for such classes.
 
 ## Field Deployment Gotcha ⚠️
 - **Problem**: SF CLI marks new fields as "Unchanged" but field doesn't exist in org
@@ -364,7 +394,7 @@ for v in high:
   ```
 - **jq for JSON parsing** — use `jq` to parse `sf` JSON output reliably:
   ```powershell
-  sf apex run test --class-names MyClass_TEST --target-org MyOrg__dev --result-format json --code-coverage --wait 10 2>&1 | Out-File ai-logs/test.json
+  sf apex run test --class-names MyClass_TEST --target-org MyOrg__dev --result-format json --code-coverage --wait 20 2>&1 | Out-File ai-logs/test.json
   jq ".result.summary" ai-logs/test.json
   ```
 - **Correct pattern:**
@@ -472,5 +502,28 @@ sf data query --query "SELECT ..." --target-org {ProjectName}__dev --use-tooling
   String name = [SELECT Name FROM MyObject__c WHERE Id = :record.Id].Name;
   ```
   **Warning**: for `cacheable=true` methods, another test method may have already cached a result for that same Name. Prefer `@TestSetup` + sentinel value for cacheable controllers.
+- **`System.runAs()` for permission-dependent tests** — when testing methods that check the running user's permissions (PermissionSets, profiles, custom permissions), always create a fresh user in the test and wrap the assertions in `System.runAs()`. The test-running user in a persistent org like a sandbox may already have elevated permissions that break the "no-access" branch:
+  ```apex
+  @IsTest
+  static void testNoAccess() {
+      Profile p = [SELECT Id FROM Profile WHERE Name = 'Standard User' LIMIT 1];
+      User noAccess = new User(
+          FirstName = 'No', LastName = 'Access',
+          Email = 'noaccess@test.invalid',
+          Username = 'noaccess.' + System.currentTimeMillis() + '@test.invalid',
+          Alias = 'noaccs',
+          TimeZoneSidKey = 'America/Chicago', LocaleSidKey = 'en_US',
+          EmailEncodingKey = 'UTF-8', LanguageLocaleKey = 'en_US',
+          ProfileId = p.Id
+      );
+      insert noAccess;
+      System.runAs(noAccess) {
+          Test.startTest();
+          Boolean result = MyController.hasAccess();
+          Test.stopTest();
+          System.assertEquals(false, result, 'Fresh Standard User should have no access');
+      }
+  }
+  ```
 - **replace_string_in_file over insert_edit_into_file** for targeted test edits — `insert_edit_into_file` can create duplicate methods; use `replace_string_in_file` with enough context lines to be unique
 - **Do not create helper Python scripts** to generate test class content — edit the `.cls` file directly
