@@ -61,7 +61,14 @@ This document should be written in plain language and focus on the user’s need
 Consider putting the following documents in your docs folder (as defined in your global instructions):
 
 - The user-centered requirement document that outlines the functionality you want to build.
-- Any documentation related to the codebase. This can be 
+- Any documentation related to the codebase. This can be things like:
+  - A README file that explains the functionality of the code and how to use it.
+  - Comments in the code that explain the purpose of different sections and any important details.
+  - A user guide that provides step-by-step instructions for using the code.
+
+Sometimes you will get your user requirements in word or a PDF. 
+It is beneficial to convert those documents into markdown and put them in your repo so that your AI coding assistants can refer to them when generating code.
+Here is a handy web based pdf to markdown converter: https://pdf2md.morethan.io/
 
 Once you have this document:
 

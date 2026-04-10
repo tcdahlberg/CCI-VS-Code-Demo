@@ -16,11 +16,11 @@ Start with the philosophy, then work through the setup and reference docs in ord
 
 Before you write a line of code, get your tools and AI context in place.
 
-| Doc | What it covers |
-|-----|----------------|
-| [vibe-coding.md](vibe-coding.md) | Install the full agentic coding stack: Git, Node.js, GitHub CLI, Salesforce CLI, Salesforce MCP, IntelliJ IDEA, Illuminated Cloud plugin, and GitHub Copilot plugin. |
-| [vide-coding-terminal-add-ons.md](vide-coding-terminal-add-ons.md) | Terminal productivity tools that make the agent's life easier — `fd`, `bat`, `ripgrep`, `jq`, `tokei`, PurgeCSS, Playwright, and BackstopJS. Includes a complete install script. |
-| [GITHUB-COPILOT-INSTRUCTIONS.md](GITHUB-COPILOT-INSTRUCTIONS.md) | The master AI instruction set for GitHub Copilot — LWC patterns, Apex gotchas, deployment strategy, testing rules, terminal best practices. The primary global context file for any Salesforce project. |
+| Doc                                                                 | What it covers |
+|---------------------------------------------------------------------|----------------|
+| [Tool Installations](vibe-coding.md)                                | Install the full agentic coding stack: Git, Node.js, GitHub CLI, Salesforce CLI, Salesforce MCP, IntelliJ IDEA, Illuminated Cloud plugin, and GitHub Copilot plugin. |
+| [Terminal Add-on Installations](vide-coding-terminal-add-ons.md)    | Terminal productivity tools that make the agent's life easier — fd, bat, ripgrep, jq, tokei, PurgeCSS, Playwright, and BackstopJS. Includes a complete install script. |
+| [AI Global Instructions](GITHUB-COPILOT-INSTRUCTIONS.md) | The master AI instruction set for GitHub Copilot — LWC patterns, Apex gotchas, deployment strategy, testing rules, terminal best practices. The primary global context file for any Salesforce project. |
 
 ### Quick Terminal Tool Reference
 
