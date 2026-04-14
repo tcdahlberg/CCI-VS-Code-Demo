@@ -61,3 +61,5 @@ target/
 **/*.tsbuildinfo
 
 **/graphql.config.yml
+
+.playwright-mcp
