@@ -1,0 +1,405 @@
+- generic [active] [ref=e1]:
+  - navigation "Skip navigation":
+    - link "Skip to primary content" [ref=e2] [cursor=pointer]:
+      - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Alumni" [ref=e8] [cursor=pointer]:
+          - /url: https://alumni.stthomas.edu
+        - link "University of St. Thomas" [ref=e9] [cursor=pointer]:
+          - /url: https://www.stthomas.edu/
+          - generic [ref=e10]: University of St. Thomas
+          - img [ref=e11]
+      - list [ref=e17]:
+        - listitem [ref=e18]:
+          - link "Early Career Alumni" [ref=e19] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/early-career-alumni/index.html
+        - listitem [ref=e20]:
+          - link "Parents & Families" [ref=e21] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/parents-families/index.html
+    - generic [ref=e23]:
+      - navigation [ref=e24]:
+        - list [ref=e25]:
+          - listitem [ref=e26]:
+            - button "About" [ref=e27] [cursor=pointer]
+          - listitem [ref=e28]:
+            - button "Benefits & Resources" [ref=e29] [cursor=pointer]
+          - listitem [ref=e30]:
+            - button "Get Involved" [ref=e31] [cursor=pointer]
+          - listitem [ref=e32]:
+            - button "News & Events" [ref=e33] [cursor=pointer]
+          - listitem [ref=e34]:
+            - button "Support St. Thomas" [ref=e35] [cursor=pointer]
+        - list [ref=e36]:
+          - listitem [ref=e37]:
+            - link "Update Contact Info" [ref=e38] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/update-contact-information/index.html
+          - listitem [ref=e39]:
+            - link "Make a Gift" [ref=e40] [cursor=pointer]:
+              - /url: https://give.stthomas.edu/index.html
+      - button "Toggle search" [ref=e41] [cursor=pointer]:
+        - generic [ref=e42]: Toggle search
+  - link "University of St. Thomas" [ref=e43] [cursor=pointer]:
+    - /url: https://alumni.stthomas.edu
+    - generic [ref=e44]: University of St. Thomas
+    - img [ref=e45]
+  - list [ref=e50]:
+    - listitem [ref=e51]:
+      - link "Early Career Alumni" [ref=e52] [cursor=pointer]:
+        - /url: https://alumni.stthomas.edu/early-career-alumni/index.html
+    - listitem [ref=e53]:
+      - link "Parents & Families" [ref=e54] [cursor=pointer]:
+        - /url: https://alumni.stthomas.edu/parents-families/index.html
+  - generic [ref=e55]:
+    - button "Toggle video" [ref=e58] [cursor=pointer]:
+      - generic [ref=e59]: Toggle video
+    - generic [ref=e60]:
+      - 'heading "From Campus to Community: Welcome to the Tommie Network" [level=1] [ref=e62]'
+      - generic [ref=e63]:
+        - generic [ref=e66]:
+          - generic [ref=e67]: New! Finding Forward Events
+          - link "Join us for three events this spring." [ref=e68] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/events/finding-forward/index.html
+        - generic [ref=e71]:
+          - generic [ref=e72]: Invigorate Your Career
+          - link "Explore Tommie career webinars." [ref=e73] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/events/webinar-series/index.html
+        - generic [ref=e76]:
+          - generic [ref=e77]: The Next Gen of Tommies
+          - link "Refer a student to St. Thomas." [ref=e78] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/support-st-thomas/refer-a-student/index.html
+  - main [ref=e79]:
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - heading "Tommies Forever" [level=2] [ref=e83]
+          - paragraph [ref=e85]: No matter where your journey has taken you, your Tommie connection is for life. Celebrate at events, cheer on the Tommies, expand your professional network of 120,000+ alumni, and keep learning with St. Thomas. There are countless ways to stay involved and show your Tommie spirit.
+        - generic [ref=e86]:
+          - img "Tommie alumni gather in Chicago for networking event" [ref=e88]
+          - generic [ref=e89]:
+            - link "Volunteer with St. Thomas" [ref=e90] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/support-st-thomas/volunteer/index.html
+            - link "Mentor a St. Thomas Student or Fellow Alum" [ref=e91] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/support-st-thomas/mentor-a-student/index.html
+            - link "Join St. Thomas Connect" [ref=e92] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/get-involved/join-st-thomas-connect/index.html
+            - link "Follow St. Thomas Alumni on Social Media" [ref=e93] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/get-involved/social-media/index.html
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - heading "Upcoming Events" [level=2] [ref=e96]
+          - link "See All Events" [ref=e97] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/events/index.html
+        - generic [ref=e100]:
+          - link "Tommie Alumni Volunteer Week Monday, April 13, 2026 at 12:00 AM Alumni are planning meaningful volunteer experiences for Tommies to come together, connect and forward the St. Thomas mission of all for the common good." [ref=e102] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e103]:
+              - paragraph [ref=e104]: Tommie Alumni Volunteer Week
+              - generic [ref=e106]:
+                - img [ref=e108]
+                - text: Monday, April 13, 2026 at 12:00 AM
+              - generic [ref=e110]: Alumni are planning meaningful volunteer experiences for Tommies to come together, connect and forward the St. Thomas mission of all for the common good.
+          - link "Pray It Forward Wednesday, April 15, 2026 at 11:30 AM Online We invite alumni and friends of St. Thomas to join us for 15 minutes once per month to pause, gather online and pray with us. Pray It Forward will include reading of the day’s Gospel, a brief reflection, offering of intentions and a prayer." [ref=e112] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/events/pray-it-forward/
+            - generic [ref=e113]:
+              - paragraph [ref=e114]: Pray It Forward
+              - generic [ref=e115]:
+                - generic [ref=e116]:
+                  - img [ref=e118]
+                  - text: Wednesday, April 15, 2026 at 11:30 AM
+                - generic [ref=e120]:
+                  - img [ref=e122]
+                  - text: Online
+              - generic [ref=e125]: We invite alumni and friends of St. Thomas to join us for 15 minutes once per month to pause, gather online and pray with us. Pray It Forward will include reading of the day’s Gospel, a brief reflection, offering of intentions and a prayer.
+          - 'link "Finding Forward: The Fourth Estate in the 21st Century Livestream Tuesday, April 21, 2026 at 7:00 PM Online Join journalist Major Garrett and St. Thomas President Rob Vischer for a conversation about the responsibilities of journalism amidst political polarization, social media shaming and media consolidation." [ref=e127] [cursor=pointer]':
+            - /url: https://alumni.stthomas.edu/events/finding-forward/april-2026/index.html
+            - generic [ref=e128]:
+              - paragraph [ref=e129]: "Finding Forward: The Fourth Estate in the 21st Century Livestream"
+              - generic [ref=e130]:
+                - generic [ref=e131]:
+                  - img [ref=e133]
+                  - text: Tuesday, April 21, 2026 at 7:00 PM
+                - generic [ref=e135]:
+                  - img [ref=e137]
+                  - text: Online
+              - generic [ref=e140]: Join journalist Major Garrett and St. Thomas President Rob Vischer for a conversation about the responsibilities of journalism amidst political polarization, social media shaming and media consolidation.
+          - 'link "Finding Forward: The Fourth Estate in the 21st Century, In-Person Tuesday, April 21, 2026 at 7:00 PM Anderson Student Center (ASC) Join journalist Major Garrett and St. Thomas President Rob Vischer for a conversation about the responsibilities of journalism amidst political polarization, social media shaming and media consolidation." [ref=e142] [cursor=pointer]':
+            - /url: https://alumni.stthomas.edu/events/finding-forward/april-2026/index.html
+            - generic [ref=e143]:
+              - paragraph [ref=e144]: "Finding Forward: The Fourth Estate in the 21st Century, In-Person"
+              - generic [ref=e145]:
+                - generic [ref=e146]:
+                  - img [ref=e148]
+                  - text: Tuesday, April 21, 2026 at 7:00 PM
+                - generic [ref=e150]:
+                  - img [ref=e152]
+                  - text: Anderson Student Center (ASC)
+              - generic [ref=e155]: Join journalist Major Garrett and St. Thomas President Rob Vischer for a conversation about the responsibilities of journalism amidst political polarization, social media shaming and media consolidation.
+          - link "St. Thomas Night at MN Twins PreGame Social Tuesday, April 28, 2026 at 5:00 PM Fulton Taproom Join fellow Tommies as we rally for our home team on Tuesday, April 28! Start the evening with a pregame social at Fulton Taproom and then head to Target Field to cheer on the Twins!" [ref=e157] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/events/twins-st-thomas-night/index.html
+            - generic [ref=e158]:
+              - paragraph [ref=e159]: St. Thomas Night at MN Twins PreGame Social
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - img [ref=e163]
+                  - text: Tuesday, April 28, 2026 at 5:00 PM
+                - generic [ref=e165]:
+                  - img [ref=e167]
+                  - text: Fulton Taproom
+              - generic [ref=e170]: Join fellow Tommies as we rally for our home team on Tuesday, April 28! Start the evening with a pregame social at Fulton Taproom and then head to Target Field to cheer on the Twins!
+          - 'link "Tommies Together: Career Chats & Connections Wednesday, April 29, 2026 at 5:45 PM Anderson Student Center (ASC) Join us for a casual evening of energizing conversations where alumni and students will come together for industry-focused career chats." [ref=e172] [cursor=pointer]':
+            - /url: https://uofstthomasmn.my.salesforce-sites.com/summit__SummitEventsRegister?instanceID=a0zVs000006SL4TIAW
+            - generic [ref=e173]:
+              - paragraph [ref=e174]: "Tommies Together: Career Chats & Connections"
+              - generic [ref=e175]:
+                - generic [ref=e176]:
+                  - img [ref=e178]
+                  - text: Wednesday, April 29, 2026 at 5:45 PM
+                - generic [ref=e180]:
+                  - img [ref=e182]
+                  - text: Anderson Student Center (ASC)
+              - generic [ref=e185]: Join us for a casual evening of energizing conversations where alumni and students will come together for industry-focused career chats.
+          - link "St. Thomas Day Wednesday, May 6, 2026 at 5:30 PM Anderson Student Center (ASC) The annual St. Thomas Day celebration recognizes the extraordinary contributions that members of the St. Thomas community have made to the university and the wider community." [ref=e187] [cursor=pointer]:
+            - /url: https://uofstthomasmn.my.salesforce-sites.com/summit__SummitEventsRegister?instanceID=a0zVs000007DWUHIA4
+            - generic [ref=e188]:
+              - paragraph [ref=e189]: St. Thomas Day
+              - generic [ref=e190]:
+                - generic [ref=e191]:
+                  - img [ref=e193]
+                  - text: Wednesday, May 6, 2026 at 5:30 PM
+                - generic [ref=e195]:
+                  - img [ref=e197]
+                  - text: Anderson Student Center (ASC)
+              - generic [ref=e200]: The annual St. Thomas Day celebration recognizes the extraordinary contributions that members of the St. Thomas community have made to the university and the wider community.
+          - link "School of Engineering Senior Design Show & Reception Friday, May 8, 2026 at 4:30 PM Schoenecker Center (SCC) Please join us for the 2026 Senior Design Show, which will be held in the Schoenecker Center on South Campus in St. Paul. Following the show and in appreciation of your support, we invite you to attend the School of Engineering Reception for some light refreshments. We look forward to having you on campus!" [ref=e202] [cursor=pointer]:
+            - /url: https://uofstthomasmn.my.salesforce-sites.com/summit__SummitEventsRegister?instanceID=a0zVs000006zb7FIAQ
+            - generic [ref=e203]:
+              - paragraph [ref=e204]: School of Engineering Senior Design Show & Reception
+              - generic [ref=e205]:
+                - generic [ref=e206]:
+                  - img [ref=e208]
+                  - text: Friday, May 8, 2026 at 4:30 PM
+                - generic [ref=e210]:
+                  - img [ref=e212]
+                  - text: Schoenecker Center (SCC)
+              - generic [ref=e215]: Please join us for the 2026 Senior Design Show, which will be held in the Schoenecker Center on South Campus in St. Paul. Following the show and in appreciation of your support, we invite you to attend the School of Engineering Reception for some light refreshments. We look forward to having you on campus!
+          - link "Pray It Forward Wednesday, May 20, 2026 at 11:30 AM Online We invite alumni and friends of St. Thomas to join us for 15 minutes once per month to pause, gather online and pray with us. Pray It Forward will include reading of the day’s Gospel, a brief reflection, offering of intentions and a prayer." [ref=e217] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/events/pray-it-forward/
+            - generic [ref=e218]:
+              - paragraph [ref=e219]: Pray It Forward
+              - generic [ref=e220]:
+                - generic [ref=e221]:
+                  - img [ref=e223]
+                  - text: Wednesday, May 20, 2026 at 11:30 AM
+                - generic [ref=e225]:
+                  - img [ref=e227]
+                  - text: Online
+              - generic [ref=e230]: We invite alumni and friends of St. Thomas to join us for 15 minutes once per month to pause, gather online and pray with us. Pray It Forward will include reading of the day’s Gospel, a brief reflection, offering of intentions and a prayer.
+          - generic [ref=e231]:
+            - button "Previous Slide" [disabled] [ref=e232]
+            - button "Next Slide" [ref=e233] [cursor=pointer]
+      - generic [ref=e234]:
+        - generic [ref=e236]:
+          - heading "Alumni Stories" [level=2] [ref=e237]
+          - paragraph [ref=e238]: Your journey is more than personal – it's powerful. The lessons you've learned, challenges you've overcome and milestones you've achieved are shaping a story worth sharing. As an alum, your experience can inspire the next generation of Tommies – future leaders who are eager to learn from your experiences as they pave their personal and professional paths.
+          - paragraph [ref=e239]:
+            - link "Read Tommie Alumni Stories" [ref=e240] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/news/stories/index.html
+        - generic [ref=e242]:
+          - generic [ref=e244]:
+            - generic [ref=e245]:
+              - figure [ref=e246]:
+                - img "Caitlyn Gomez Schaeffer smiles into the camera. She poses in front of a tan wall" [ref=e247]
+              - link "Read Caitlyn’s Story" [ref=e248] [cursor=pointer]:
+                - /url: https://alumni.stthomas.edu/news/stories/caitlyn-gomez-schaeffer/index.html
+            - generic [ref=e250]:
+              - generic [ref=e251]: “Appreciate the opportunity you have, don’t go along with everything you’re told, ask a lot of questions and learn from your own mistakes.”
+              - generic [ref=e252]: Caitlyn Gomez Schaeffer ’11
+          - generic [ref=e254]:
+            - generic [ref=e255]:
+              - figure [ref=e256]:
+                - img "Chengny Thao poses for a portrait in front of a lush green background" [ref=e257]
+              - link "Read Chengny's Story" [ref=e258] [cursor=pointer]:
+                - /url: https://alumni.stthomas.edu/news/stories/chengny-thao/index.html
+            - generic [ref=e260]:
+              - generic [ref=e261]: “As a first-generation immigrant, I did not have playbook for success but instead relied heavily on the community to guide and mentor me. I felt St. Thomas was an extension of my family helping set the direction towards true north.”
+              - generic [ref=e262]: Chengny Thao ’00
+          - generic [ref=e264]:
+            - generic [ref=e265]:
+              - figure [ref=e266]:
+                - img "Evan Schwartz poses for a professional portrait in front of a taupe background" [ref=e267]
+              - link "Read Evan’s Story" [ref=e268] [cursor=pointer]:
+                - /url: https://alumni.stthomas.edu/news/stories/evan-schwartz/index.html
+            - generic [ref=e270]:
+              - generic [ref=e271]: “St. Thomas did an excellent job of helping me realize that there isn't any one way to approach a challenge.”
+              - generic [ref=e272]: Evan Schwartz ’09
+      - generic [ref=e275]:
+        - generic [ref=e282]:
+          - generic [ref=e283]:
+            - heading "Alumni Benefits and Career Resources" [level=2] [ref=e284]
+            - paragraph [ref=e285]: Our commitment to your continued growth and professional development continues well beyond graduation. See the services and benefits that enhance the value of your lifelong university connection.
+          - generic [ref=e286]:
+            - link "Career Resources for Alumni" [ref=e287] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/benefits-resources/career/index.html
+            - link "All Alumni Benefits & Services" [ref=e288] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/benefits-resources/index.html
+        - figure [ref=e290]:
+          - img "Students at tables in executive education classroom" [ref=e291]
+      - generic [ref=e292]:
+        - generic [ref=e293]:
+          - 'heading "Support Future Tommies: Give Back to St. Thomas" [level=2] [ref=e294]'
+          - paragraph [ref=e296]: Tommie alumni support and strengthen our shared mission and community through the five T's of philanthropy – time, talent, testimony, ties and treasure. We're grateful for the many ways alumni engage with the university.
+        - generic [ref=e297]:
+          - img "Alumni work together to pack food at Open Arms" [ref=e299]
+          - generic [ref=e300]:
+            - link "Volunteer Your Time or Talents" [ref=e301] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/support-st-thomas/volunteer/index.html
+            - link "Refer a Student" [ref=e302] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/support-st-thomas/refer-a-student/index.html
+            - link "Hire a Tommie Graduate or Intern" [ref=e303] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/support-st-thomas/hire-a-tommie/index.html
+            - link "Make a Gift to Support St. Thomas Students" [ref=e304] [cursor=pointer]:
+              - /url: https://give.stthomas.edu/index.html
+      - generic [ref=e307]:
+        - generic [ref=e309]:
+          - heading "Stay Connected with Alumni News & Events" [level=2] [ref=e310]
+          - paragraph [ref=e311]: You are a valued member of the St. Thomas community, and we don't want you to miss any exciting campus updates, events, activities or opportunities to engage. Stay in touch with us so we can keep in touch.
+        - paragraph [ref=e312]:
+          - link "Update Your Contact Info" [ref=e313] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/update-contact-information/index.html
+          - link "Follow St. Thomas Alumni on Social Media" [ref=e314] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/get-involved/social-media/index.html
+  - contentinfo [ref=e321]:
+    - generic [ref=e322]:
+      - link "University of St. Thomas" [ref=e323] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e324]: University of St. Thomas
+        - img [ref=e325]
+      - paragraph [ref=e331]:
+        - text: University of St. Thomas, Minnesota
+        - text: 2115 Summit Avenue
+        - text: St. Paul, Minnesota 55105 USA
+      - paragraph [ref=e332]:
+        - link "Contact Alumni Engagment" [ref=e333] [cursor=pointer]:
+          - /url: https://alumni.stthomas.edu/contact/index.html
+        - link "Update your Contact Info" [ref=e334] [cursor=pointer]:
+          - /url: https://alumni.stthomas.edu/update-contact-information/index.html
+        - link "Request a Transcript" [ref=e335] [cursor=pointer]:
+          - /url: https://www.stthomas.edu/registrar/alumni-former-student-information/index.html
+      - generic [ref=e336]:
+        - link "Facebook" [ref=e337] [cursor=pointer]:
+          - /url: https://www.facebook.com/tommiealumni/
+          - generic [ref=e338]: Facebook
+          - img [ref=e339]
+        - link "Instagram" [ref=e341] [cursor=pointer]:
+          - /url: https://www.instagram.com/tommiealumni/
+          - generic [ref=e342]: Instagram
+          - img [ref=e343]
+        - link "LinkedIn" [ref=e345] [cursor=pointer]:
+          - /url: https://www.linkedin.com/school/universityofstthomas/
+          - generic [ref=e346]: LinkedIn
+          - img [ref=e347]
+        - link "TikTok" [ref=e349] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@universityofstthomas/
+          - generic [ref=e350]: TikTok
+          - img [ref=e351]
+        - link "X" [ref=e353] [cursor=pointer]:
+          - /url: https://twitter.com/tommiealumni/
+          - generic [ref=e354]: X
+          - img [ref=e355]
+        - link "YouTube" [ref=e357] [cursor=pointer]:
+          - /url: https://www.youtube.com/universityofstthomas/
+          - generic [ref=e358]: YouTube
+          - img [ref=e359]
+      - paragraph [ref=e362]: © 2026 University of St. Thomas, Minnesota
+    - generic [ref=e363]:
+      - navigation [ref=e364]:
+        - generic [ref=e365]:
+          - generic [ref=e366]:
+            - generic [ref=e367]: Benefits & Resources
+            - list [ref=e368]:
+              - listitem [ref=e369]:
+                - link "Career Resources" [ref=e370] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/career/index.html
+              - listitem [ref=e371]:
+                - link "Continuing Education" [ref=e372] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/continuing-education/index.html
+              - listitem [ref=e373]:
+                - link "Faith & Spirituality" [ref=e374] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/faith-spirituality/index.html
+              - listitem [ref=e375]:
+                - link "Financial Wellness" [ref=e376] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/financial/index.html
+          - generic [ref=e377]:
+            - generic [ref=e378]: Get Involved
+            - list [ref=e379]:
+              - listitem [ref=e380]:
+                - link "Join St. Thomas Connect" [ref=e381] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/get-involved/join-st-thomas-connect/index.html
+              - listitem [ref=e382]:
+                - link "Corporate Alumni Groups" [ref=e383] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/get-involved/corporate-alumni-groups/index.html
+              - listitem [ref=e384]:
+                - link "Social Media Directory" [ref=e385] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/get-involved/social-media/index.html
+              - listitem [ref=e386]:
+                - link "Alumni Engagement Board" [ref=e387] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/about/alumni-engagement-board/index.html
+        - generic [ref=e388]:
+          - generic [ref=e389]:
+            - generic [ref=e390]: News & Events
+            - list [ref=e391]:
+              - listitem [ref=e392]:
+                - link "Alumni Stories" [ref=e393] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/news/stories/index.html
+              - listitem [ref=e394]:
+                - link "Alumni Newsletter" [ref=e395] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/news/newsletter/index.html
+              - listitem [ref=e396]:
+                - link "St. Thomas News" [ref=e397] [cursor=pointer]:
+                  - /url: https://news.stthomas.edu/
+              - listitem [ref=e398]:
+                - link "Signature Events" [ref=e399] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/events/index.html#signature-events
+              - listitem [ref=e400]:
+                - link "Events Calendar" [ref=e401] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/events/calendar/index.html
+          - generic [ref=e402]:
+            - generic [ref=e403]: Support St. Thomas
+            - list [ref=e404]:
+              - listitem [ref=e405]:
+                - link "Refer a Student" [ref=e406] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/refer-a-student/index.html
+              - listitem [ref=e407]:
+                - link "Mentor a Student" [ref=e408] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/mentor-a-student/index.html
+              - listitem [ref=e409]:
+                - link "Hire a Tommie" [ref=e410] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/hire-a-tommie/index.html
+              - listitem [ref=e411]:
+                - link "Volunteer" [ref=e412] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/volunteer/index.html
+              - listitem [ref=e413]:
+                - link "Make a Gift" [ref=e414] [cursor=pointer]:
+                  - /url: https://give.stthomas.edu/
+      - list [ref=e416]:
+        - listitem [ref=e417]:
+          - link "Report a Website Problem" [ref=e418] [cursor=pointer]:
+            - /url: https://stthomas.az1.qualtrics.com/jfe/form/SV_29nqe0td5nH798q
+        - listitem [ref=e419]:
+          - link "EO Statement" [ref=e420] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/policies/equal-opportunity/
+        - listitem [ref=e421]:
+          - link "Accessibility" [ref=e422] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/accessibility-statement/index.html
+        - listitem [ref=e423]:
+          - link "Privacy Policy" [ref=e424] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/policies/online-privacy/index.html
+        - listitem [ref=e425]:
+          - link "Emergency" [ref=e426] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/emergency/index.html
+    - link "Back to Top" [ref=e427] [cursor=pointer]:
+      - /url: "#top"
+      - text: Back to Top
+      - img [ref=e429]

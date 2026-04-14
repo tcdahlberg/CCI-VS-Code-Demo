@@ -1,0 +1,795 @@
+- generic [ref=e3]:
+  - banner [ref=e9]:
+    - button "Skip to Main Content" [ref=e10] [cursor=pointer]
+    - generic [ref=e16]:
+      - navigation "Secondary" [ref=e17]:
+        - list [ref=e18]:
+          - listitem [ref=e19]:
+            - button "Apps and Tools" [ref=e22] [cursor=pointer]:
+              - generic [ref=e23]: 󶍚
+              - generic: Apps and Tools
+          - listitem:
+            - generic: 󶇴
+          - listitem [ref=e24]:
+            - button "Following" [ref=e27] [cursor=pointer]:
+              - generic [ref=e28]: 󶊛
+              - generic: Following
+          - listitem [ref=e29]:
+            - button "My Content" [ref=e32] [cursor=pointer]:
+              - generic [ref=e33]: 󶀔
+              - generic: My Content
+          - listitem [ref=e34]:
+            - button "Mandatory Content" [ref=e37] [cursor=pointer]:
+              - generic [ref=e38]: 󶀹
+              - generic: Mandatory Content
+          - listitem [ref=e39]:
+            - button "Notifications. You have 0 notifications." [ref=e44] [cursor=pointer]:
+              - generic [ref=e45]: 󶅘
+      - generic [ref=e52]:
+        - textbox "Start Searching…" [ref=e53]
+        - button "Start Searching…" [ref=e55] [cursor=pointer]:
+          - generic [ref=e56]: 󶈰
+    - generic [ref=e57]:
+      - link "Back to home" [ref=e60] [cursor=pointer]:
+        - /url: https://one.stthomas.edu/
+        - img "Back to home" [ref=e61]
+      - navigation "Main" [ref=e62]:
+        - list [ref=e63]:
+          - listitem [ref=e64]:
+            - link "󶀄 Back to home" [ref=e65] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/
+              - generic [ref=e66]: 󶀄
+              - generic: Back to home
+          - listitem [ref=e67]:
+            - button "Quick Links 󶒼" [ref=e68] [cursor=pointer]:
+              - text: Quick Links
+              - generic [ref=e69]: 󶒼
+          - listitem [ref=e70]:
+            - link "Events" [ref=e71] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/ustevents
+          - listitem [ref=e72]:
+            - link "News" [ref=e73] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/ustnews
+          - listitem [ref=e74]:
+            - link "My Office 365" [ref=e75] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/myo365
+          - listitem [ref=e76]:
+            - link "People" [ref=e77] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/search-center?source=79445&sort=displayName&dir=asc&mode=grid
+          - listitem [ref=e78]:
+            - link "Search" [ref=e79] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/search-center/
+      - button "Dahlberg, Thaddaeus B., Principal Software Engineer" [ref=e82] [cursor=pointer]:
+        - generic [ref=e83]:
+          - img [ref=e87]
+          - generic [ref=e88]:
+            - paragraph [ref=e89]:
+              - text: Dahlberg, Thaddaeus B.
+              - generic [ref=e90]: 󶒼
+            - generic [ref=e91]: Principal Software Engineer
+  - main [ref=e92]:
+    - generic [ref=e93]:
+      - generic [ref=e99]:
+        - button "Skip Brand Hub site navigation" [ref=e100] [cursor=pointer]
+        - navigation "Brand Hub" [ref=e101]:
+          - list [ref=e103]:
+            - text: 󶒾
+            - listitem [ref=e104]:
+              - link "Brand Hub" [ref=e105] [cursor=pointer]:
+                - /url: https://one.stthomas.edu/sites/brand-hub/SitePageModern/255330/brand-home
+                - generic [ref=e106]: Brand Hub
+              - button "󶒾 N/A as read out by a screen reader" [ref=e107] [cursor=pointer]:
+                - text: 󶒾
+                - generic: N/A as read out by a screen reader
+            - listitem [ref=e108]:
+              - link "Brand Writing" [ref=e109] [cursor=pointer]:
+                - /url: https://one.stthomas.edu/sites/brand-hub/SitePageModern/252505/brand-writing
+                - generic [ref=e110]: Brand Writing
+              - button "󶒾 N/A as read out by a screen reader" [ref=e111] [cursor=pointer]:
+                - text: 󶒾
+                - generic: N/A as read out by a screen reader
+            - listitem [ref=e112]:
+              - link "Applying the Brand" [ref=e113] [cursor=pointer]:
+                - /url: https://one.stthomas.edu/sites/brand-hub/SitePageModern/252512/applying-the-brand
+                - generic [ref=e114]: Applying the Brand
+              - button "󶒾 N/A as read out by a screen reader" [ref=e115] [cursor=pointer]:
+                - text: 󶒾
+                - generic: N/A as read out by a screen reader
+            - listitem [ref=e116]:
+              - link "Brand Accessibility" [ref=e117] [cursor=pointer]:
+                - /url: https://one.stthomas.edu/sites/brand-hub/SitePageModern/252514/brand-accessibility
+                - generic [ref=e118]: Brand Accessibility
+              - button "󶒾 N/A as read out by a screen reader" [ref=e119] [cursor=pointer]:
+                - text: 󶒾
+                - generic: N/A as read out by a screen reader
+            - listitem [ref=e120]:
+              - link "Back to MIC" [ref=e121] [cursor=pointer]:
+                - /url: https://one.stthomas.edu/redir/93593
+                - generic [ref=e122]: Back to MIC
+      - region "Main content" [ref=e125]:
+        - generic [ref=e128]:
+          - generic [ref=e138]:
+            - heading "Brand Colors" [level=1] [ref=e139]
+            - heading "Hover and click to copy color codes to your clipboard" [level=2] [ref=e140]
+            - link "Tints" [ref=e141] [cursor=pointer]:
+              - /url: https://one.stthomas.edu/sites/brand-hub/SitePageModern/248163/brand-colors#tints
+          - generic [ref=e143]:
+            - generic [ref=e150]:
+              - heading "Refreshed Color Palette" [level=2] [ref=e151]
+              - paragraph [ref=e152]:
+                - strong [ref=e153]: Primary colors remain unchanged
+              - paragraph [ref=e154]: One or both of the two primary purples (Dark - Pantone 2607 and Medium - Pantone 2587) should represent the majority of colors used in a design.
+              - paragraph [ref=e155]:
+                - strong [ref=e156]: Seconday colors have simplified
+              - paragraph [ref=e157]: Cool Gray and Bright Purple (Pantone 2592) are unchanged. We’ve tuned our accent green to an Emerald (Pantone 362) to better reflect the heritage of our founder, John Ireland, and improve contrast accessibility.
+            - region [ref=e163]:
+              - generic [ref=e164]:
+                - generic [ref=e166]:
+                  - heading "Primary Colors" [level=2] [ref=e167]
+                  - paragraph [ref=e168]: One or both of the two primary purples (Dark - Pantone 2607 and Medium - Pantone 2587) should represent the majority of colors used in a design.
+                  - paragraph [ref=e169]
+                - generic [ref=e171]:
+                  - generic [ref=e172]:
+                    - heading "Dark Purple" [level=3] [ref=e173]
+                    - button "PMS - 2607 C" [ref=e174] [cursor=pointer]:
+                      - generic [ref=e175]: PMS - 2607 C
+                      - text: 󶃇
+                    - button "CMYK - 82/100/18/12" [ref=e176] [cursor=pointer]:
+                      - generic [ref=e177]: CMYK - 82/100/18/12
+                      - text: 󶃇
+                    - button "RGB - 81/12/118" [ref=e178] [cursor=pointer]:
+                      - generic [ref=e179]: RGB - 81/12/118
+                      - text: 󶃇
+                    - 'button "HEX - #510c76" [ref=e180] [cursor=pointer]':
+                      - generic [ref=e181]: "HEX - #510c76"
+                      - text: 󶃇
+                  - generic [ref=e182]:
+                    - generic [ref=e183]: 󶀶
+                    - text: 100%
+                - generic [ref=e185]:
+                  - generic [ref=e186]:
+                    - heading "Medium Purple" [level=3] [ref=e187]
+                    - button "PMS - 2587 C" [ref=e188] [cursor=pointer]:
+                      - generic [ref=e189]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 58/83/0/0" [ref=e190] [cursor=pointer]:
+                      - generic [ref=e191]: CMYK - 58/83/0/0
+                      - text: 󶃇
+                    - button "RGB - 131/72/173" [ref=e192] [cursor=pointer]:
+                      - generic [ref=e193]: RGB - 131/72/173
+                      - text: 󶃇
+                    - 'button "HEX - #8348ad" [ref=e194] [cursor=pointer]':
+                      - generic [ref=e195]: "HEX - #8348ad"
+                      - text: 󶃇
+                  - generic [ref=e196]:
+                    - generic [ref=e197]: 󶀶
+                    - text: 100%
+            - region [ref=e203]:
+              - generic [ref=e204]:
+                - generic [ref=e206]:
+                  - heading "Secondary Colors" [level=2] [ref=e207]
+                  - paragraph [ref=e208]: Cool Gray and Bright Purple (Pantone 2592) are unchanged. We've tuned our accent green to an emerald (Pantone 362) to better reflect the heritage of our founder, John Ireland, and improve contrast accessibility.
+                - generic [ref=e210]:
+                  - generic [ref=e211]:
+                    - heading "Bright Purple" [level=3] [ref=e212]
+                    - button "PMS - 2592 C" [ref=e213] [cursor=pointer]:
+                      - generic [ref=e214]: PMS - 2592 C
+                      - text: 󶃇
+                    - button "CMYK - 50/89/0/0" [ref=e215] [cursor=pointer]:
+                      - generic [ref=e216]: CMYK - 50/89/0/0
+                      - text: 󶃇
+                    - button "RGB - 158/40/181" [ref=e217] [cursor=pointer]:
+                      - generic [ref=e218]: RGB - 158/40/181
+                      - text: 󶃇
+                    - 'button "HEX - #9e28b5" [ref=e219] [cursor=pointer]':
+                      - generic [ref=e220]: "HEX - #9e28b5"
+                      - text: 󶃇
+                  - generic [ref=e221]:
+                    - generic [ref=e222]: 󶀶
+                    - text: 100%
+                - generic [ref=e224]:
+                  - generic [ref=e225]:
+                    - heading "Cool Gray" [level=3] [ref=e226]
+                    - button "PMS - Cool gray 7 C" [ref=e227] [cursor=pointer]:
+                      - generic [ref=e228]: PMS - Cool gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 43/35/34/1" [ref=e229] [cursor=pointer]:
+                      - generic [ref=e230]: CMYK - 43/35/34/1
+                      - text: 󶃇
+                    - button "RGB - 152/153/155" [ref=e231] [cursor=pointer]:
+                      - generic [ref=e232]: RGB - 152/153/155
+                      - text: 󶃇
+                    - 'button "HEX - #98999b" [ref=e233] [cursor=pointer]':
+                      - generic [ref=e234]: "HEX - #98999b"
+                      - text: 󶃇
+                  - generic [ref=e235]:
+                    - generic [ref=e236]: 󶀶
+                    - text: 100%
+                - generic [ref=e238]:
+                  - generic [ref=e239]:
+                    - heading "Emerald Green" [level=3] [ref=e240]
+                    - button "PMS - 362 C" [ref=e241] [cursor=pointer]:
+                      - generic [ref=e242]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 87/8/100/1" [ref=e243] [cursor=pointer]:
+                      - generic [ref=e244]: CMYK - 87/8/100/1
+                      - text: 󶃇
+                    - button "RGB - 80/158/47" [ref=e245] [cursor=pointer]:
+                      - generic [ref=e246]: RGB - 80/158/47
+                      - text: 󶃇
+                    - 'button "HEX - #4c9c2e" [ref=e247] [cursor=pointer]':
+                      - generic [ref=e248]: "HEX - #4c9c2e"
+                      - text: 󶃇
+                  - generic [ref=e249]:
+                    - generic [ref=e250]: 󶀶
+                    - text: 100%
+            - generic [ref=e257]:
+              - separator [ref=e258]
+              - heading "Tints" [level=2] [ref=e259]: Tints
+              - paragraph [ref=e260]:
+                - strong [ref=e261]: Expanding the palette
+              - paragraph [ref=e262]: The 2025 refresh introduces the use of tints to help solve situations which require more than five colors (i.e. charts and graphs). Three of our five colors can be used as tings- adding 30 more color values to our ability to communicate ideas successfully.
+              - paragraph [ref=e263]:
+                - strong [ref=e264]: Application
+              - paragraph [ref=e265]: We encourage you to try using tints in graphs, bar charts and as backgrounds. Notice how the background of the example below (Pantone Cool Gray 7 @ 10% tint) reduces the bright glare of white and makes everything easier to comprehend.
+              - paragraph [ref=e266]:
+                - img "A series of graphs and charts using the updated brand colors, with a gray background at 10% tint to provide visual contrast." [ref=e267]
+          - generic [ref=e269]:
+            - region [ref=e275]:
+              - generic [ref=e276]:
+                - heading "Pantone 2587 C" [level=3] [ref=e279]
+                - generic [ref=e281]:
+                  - generic [ref=e282]:
+                    - button "PMS - 2587 C" [ref=e283] [cursor=pointer]:
+                      - generic [ref=e284]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 58/83/0/0" [ref=e285] [cursor=pointer]:
+                      - generic [ref=e286]: CMYK - 58/83/0/0
+                      - text: 󶃇
+                    - button "RGB - 131/72/173" [ref=e287] [cursor=pointer]:
+                      - generic [ref=e288]: RGB - 131/72/173
+                      - text: 󶃇
+                    - 'button "HEX - #8348ad" [ref=e289] [cursor=pointer]':
+                      - generic [ref=e290]: "HEX - #8348ad"
+                      - text: 󶃇
+                  - generic [ref=e291]:
+                    - generic [ref=e292]: 󶀶
+                    - text: 100%
+                - generic [ref=e294]:
+                  - generic [ref=e295]:
+                    - button "PMS - 2587 C" [ref=e296] [cursor=pointer]:
+                      - generic [ref=e297]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 51/75/0/0" [ref=e298] [cursor=pointer]:
+                      - generic [ref=e299]: CMYK - 51/75/0/0
+                      - text: 󶃇
+                    - button "RGB - 144/89/181" [ref=e300] [cursor=pointer]:
+                      - generic [ref=e301]: RGB - 144/89/181
+                      - text: 󶃇
+                    - 'button "HEX - #9059b5" [ref=e302] [cursor=pointer]':
+                      - generic [ref=e303]: "HEX - #9059b5"
+                      - text: 󶃇
+                  - generic [ref=e304]:
+                    - generic [ref=e305]: 󶀶
+                    - text: 90%
+                - generic [ref=e307]:
+                  - generic [ref=e308]:
+                    - button "PMS - 2587 C" [ref=e309] [cursor=pointer]:
+                      - generic [ref=e310]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 42/67/0/0" [ref=e311] [cursor=pointer]:
+                      - generic [ref=e312]: CMYK - 42/67/0/0
+                      - text: 󶃇
+                    - button "RGB - 157/107/189" [ref=e313] [cursor=pointer]:
+                      - generic [ref=e314]: RGB - 157/107/189
+                      - text: 󶃇
+                    - 'button "HEX - #9d6bbd" [ref=e315] [cursor=pointer]':
+                      - generic [ref=e316]: "HEX - #9d6bbd"
+                      - text: 󶃇
+                  - generic [ref=e317]:
+                    - generic [ref=e318]: 󶀶
+                    - text: 80%
+                - generic [ref=e320]:
+                  - generic [ref=e321]:
+                    - button "PMS - 2587 C" [ref=e322] [cursor=pointer]:
+                      - generic [ref=e323]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 35/57/0/0" [ref=e324] [cursor=pointer]:
+                      - generic [ref=e325]: CMYK - 35/57/0/0
+                      - text: 󶃇
+                    - button "RGB - 169/124/198" [ref=e326] [cursor=pointer]:
+                      - generic [ref=e327]: RGB - 169/124/198
+                      - text: 󶃇
+                    - 'button "HEX - #a97cc6" [ref=e328] [cursor=pointer]':
+                      - generic [ref=e329]: "HEX - #a97cc6"
+                      - text: 󶃇
+                  - generic [ref=e330]:
+                    - generic [ref=e331]: 󶀶
+                    - text: 70%
+                - generic [ref=e333]:
+                  - generic [ref=e334]:
+                    - button "PMS - 2587 C" [ref=e335] [cursor=pointer]:
+                      - generic [ref=e336]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 29/47/0/0" [ref=e337] [cursor=pointer]:
+                      - generic [ref=e338]: CMYK - 29/47/0/0
+                      - text: 󶃇
+                    - button "RGB - 182/143/206" [ref=e339] [cursor=pointer]:
+                      - generic [ref=e340]: RGB - 182/143/206
+                      - text: 󶃇
+                    - 'button "HEX - #b68fce" [ref=e341] [cursor=pointer]':
+                      - generic [ref=e342]: "HEX - #b68fce"
+                      - text: 󶃇
+                  - generic [ref=e343]:
+                    - generic [ref=e344]: 󶀶
+                    - text: 60%
+                - generic [ref=e346]:
+                  - generic [ref=e347]:
+                    - button "PMS - 2587 C" [ref=e348] [cursor=pointer]:
+                      - generic [ref=e349]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 23/39/0/0" [ref=e350] [cursor=pointer]:
+                      - generic [ref=e351]: CMYK - 23/39/0/0
+                      - text: 󶃇
+                    - button "RGB - 167/160/214" [ref=e352] [cursor=pointer]:
+                      - generic [ref=e353]: RGB - 167/160/214
+                      - text: 󶃇
+                    - 'button "HEX - #c2a0d6" [ref=e354] [cursor=pointer]':
+                      - generic [ref=e355]: "HEX - #c2a0d6"
+                      - text: 󶃇
+                  - generic [ref=e356]:
+                    - generic [ref=e357]: 󶀶
+                    - text: 50%
+                - generic [ref=e359]:
+                  - generic [ref=e360]:
+                    - button "PMS - 2587 C" [ref=e361] [cursor=pointer]:
+                      - generic [ref=e362]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 17/31/0/0" [ref=e363] [cursor=pointer]:
+                      - generic [ref=e364]: CMYK - 17/31/0/0
+                      - text: 󶃇
+                    - button "RGB - 206/179/222" [ref=e365] [cursor=pointer]:
+                      - generic [ref=e366]: RGB - 206/179/222
+                      - text: 󶃇
+                    - 'button "HEX - #ceb3de" [ref=e367] [cursor=pointer]':
+                      - generic [ref=e368]: "HEX - #ceb3de"
+                      - text: 󶃇
+                  - generic [ref=e369]:
+                    - generic [ref=e370]: 󶀶
+                    - text: 40%
+                - generic [ref=e372]:
+                  - generic [ref=e373]:
+                    - button "PMS - 2587 C" [ref=e374] [cursor=pointer]:
+                      - generic [ref=e375]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 12/23/0/0" [ref=e376] [cursor=pointer]:
+                      - generic [ref=e377]: CMYK - 12/23/0/0
+                      - text: 󶃇
+                    - button "RGB - 218/197/230" [ref=e378] [cursor=pointer]:
+                      - generic [ref=e379]: RGB - 218/197/230
+                      - text: 󶃇
+                    - 'button "HEX - #dac5e6" [ref=e380] [cursor=pointer]':
+                      - generic [ref=e381]: "HEX - #dac5e6"
+                      - text: 󶃇
+                  - generic [ref=e382]:
+                    - generic [ref=e383]: 󶀶
+                    - text: 30%
+                - generic [ref=e385]:
+                  - generic [ref=e386]:
+                    - button "PMS - 2587 C" [ref=e387] [cursor=pointer]:
+                      - generic [ref=e388]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 8/15/0/0" [ref=e389] [cursor=pointer]:
+                      - generic [ref=e390]: CMYK - 8/15/0/0
+                      - text: 󶃇
+                    - button "RGB - 230/216/238" [ref=e391] [cursor=pointer]:
+                      - generic [ref=e392]: RGB - 230/216/238
+                      - text: 󶃇
+                    - 'button "HEX - #e6d8ee" [ref=e393] [cursor=pointer]':
+                      - generic [ref=e394]: "HEX - #e6d8ee"
+                      - text: 󶃇
+                  - generic [ref=e395]:
+                    - generic [ref=e396]: 󶀶
+                    - text: 20%
+                - generic [ref=e398]:
+                  - generic [ref=e399]:
+                    - button "PMS - 2587 C" [ref=e400] [cursor=pointer]:
+                      - generic [ref=e401]: PMS - 2587 C
+                      - text: 󶃇
+                    - button "CMYK - 4/7/0/0" [ref=e402] [cursor=pointer]:
+                      - generic [ref=e403]: CMYK - 4/7/0/0
+                      - text: 󶃇
+                    - button "RGB - 242/234/246" [ref=e404] [cursor=pointer]:
+                      - generic [ref=e405]: RGB - 242/234/246
+                      - text: 󶃇
+                    - 'button "HEX - #f2eaf6" [ref=e406] [cursor=pointer]':
+                      - generic [ref=e407]: "HEX - #f2eaf6"
+                      - text: 󶃇
+                  - generic [ref=e408]:
+                    - generic [ref=e409]: 󶀶
+                    - text: 10%
+            - region [ref=e415]:
+              - generic [ref=e416]:
+                - heading "Pantone Cool Gray 7 C" [level=3] [ref=e419]
+                - generic [ref=e421]:
+                  - generic [ref=e422]:
+                    - button "PMS - Cool Gray 7 C" [ref=e423] [cursor=pointer]:
+                      - generic [ref=e424]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 43/35/34/1" [ref=e425] [cursor=pointer]:
+                      - generic [ref=e426]: CMYK - 43/35/34/1
+                      - text: 󶃇
+                    - button "RGB - 152/153/155" [ref=e427] [cursor=pointer]:
+                      - generic [ref=e428]: RGB - 152/153/155
+                      - text: 󶃇
+                    - 'button "HEX - #98999b" [ref=e429] [cursor=pointer]':
+                      - generic [ref=e430]: "HEX - #98999b"
+                      - text: 󶃇
+                  - generic [ref=e431]:
+                    - generic [ref=e432]: 󶀶
+                    - text: 100%
+                - generic [ref=e434]:
+                  - generic [ref=e435]:
+                    - button "PMS - Cool Gray 7 C" [ref=e436] [cursor=pointer]:
+                      - generic [ref=e437]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 41/31/31/0" [ref=e438] [cursor=pointer]:
+                      - generic [ref=e439]: CMYK - 41/31/31/0
+                      - text: 󶃇
+                    - button "RGB - 158/161/164" [ref=e440] [cursor=pointer]:
+                      - generic [ref=e441]: RGB - 158/161/164
+                      - text: 󶃇
+                    - 'button "HEX - #9ea1af" [ref=e442] [cursor=pointer]':
+                      - generic [ref=e443]: "HEX - #9ea1af"
+                      - text: 󶃇
+                  - generic [ref=e444]:
+                    - generic [ref=e445]: 󶀶
+                    - text: 90%
+                - generic [ref=e447]:
+                  - generic [ref=e448]:
+                    - button "PMS - Cool Gray 7 C" [ref=e449] [cursor=pointer]:
+                      - generic [ref=e450]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 36/27/26/0" [ref=e451] [cursor=pointer]:
+                      - generic [ref=e452]: CMYK - 36/27/26/0
+                      - text: 󶃇
+                    - button "RGB - 168/171/174" [ref=e453] [cursor=pointer]:
+                      - generic [ref=e454]: RGB - 168/171/174
+                      - text: 󶃇
+                    - 'button "HEX - #a8abae" [ref=e455] [cursor=pointer]':
+                      - generic [ref=e456]: "HEX - #a8abae"
+                      - text: 󶃇
+                  - generic [ref=e457]:
+                    - generic [ref=e458]: 󶀶
+                    - text: 80%
+                - generic [ref=e460]:
+                  - generic [ref=e461]:
+                    - button "PMS - Cool Gray 7 C" [ref=e462] [cursor=pointer]:
+                      - generic [ref=e463]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 31/23/23/0" [ref=e464] [cursor=pointer]:
+                      - generic [ref=e465]: CMYK - 31/23/23/0
+                      - text: 󶃇
+                    - button "RGB - 178/181/183" [ref=e466] [cursor=pointer]:
+                      - generic [ref=e467]: RGB - 178/181/183
+                      - text: 󶃇
+                    - 'button "HEX - #b2b5b7" [ref=e468] [cursor=pointer]':
+                      - generic [ref=e469]: "HEX - #b2b5b7"
+                      - text: 󶃇
+                  - generic [ref=e470]:
+                    - generic [ref=e471]: 󶀶
+                    - text: 70%
+                - generic [ref=e473]:
+                  - generic [ref=e474]:
+                    - button "PMS - Cool Gray 7 C" [ref=e475] [cursor=pointer]:
+                      - generic [ref=e476]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 26/20/19/0" [ref=e477] [cursor=pointer]:
+                      - generic [ref=e478]: CMYK - 26/20/19/0
+                      - text: 󶃇
+                    - button "RGB - 189/191/193" [ref=e479] [cursor=pointer]:
+                      - generic [ref=e480]: RGB - 189/191/193
+                      - text: 󶃇
+                    - 'button "HEX - #bdbfc1" [ref=e481] [cursor=pointer]':
+                      - generic [ref=e482]: "HEX - #bdbfc1"
+                      - text: 󶃇
+                  - generic [ref=e483]:
+                    - generic [ref=e484]: 󶀶
+                    - text: 60%
+                - generic [ref=e486]:
+                  - generic [ref=e487]:
+                    - button "PMS - Cool Gray 7 C" [ref=e488] [cursor=pointer]:
+                      - generic [ref=e489]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 22/16/16/0" [ref=e490] [cursor=pointer]:
+                      - generic [ref=e491]: CMYK - 22/16/16/0
+                      - text: 󶃇
+                    - button "RGB - 199/201/203" [ref=e492] [cursor=pointer]:
+                      - generic [ref=e493]: RGB - 199/201/203
+                      - text: 󶃇
+                    - 'button "HEX - #c7c9cb" [ref=e494] [cursor=pointer]':
+                      - generic [ref=e495]: "HEX - #c7c9cb"
+                      - text: 󶃇
+                  - generic [ref=e496]:
+                    - generic [ref=e497]: 󶀶
+                    - text: 50%
+                - generic [ref=e499]:
+                  - generic [ref=e500]:
+                    - button "PMS - Cool Gray 7 C" [ref=e501] [cursor=pointer]:
+                      - generic [ref=e502]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 17/12/12/0" [ref=e503] [cursor=pointer]:
+                      - generic [ref=e504]: CMYK - 17/12/12/0
+                      - text: 󶃇
+                    - button "RGB - 210/212/213" [ref=e505] [cursor=pointer]:
+                      - generic [ref=e506]: RGB - 210/212/213
+                      - text: 󶃇
+                    - 'button "HEX - #d2d4d5" [ref=e507] [cursor=pointer]':
+                      - generic [ref=e508]: "HEX - #d2d4d5"
+                      - text: 󶃇
+                  - generic [ref=e509]:
+                    - generic [ref=e510]: 󶀶
+                    - text: 40%
+                - generic [ref=e512]:
+                  - generic [ref=e513]:
+                    - button "PMS - Cool Gray 7 C" [ref=e514] [cursor=pointer]:
+                      - generic [ref=e515]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 12/9/9/0" [ref=e516] [cursor=pointer]:
+                      - generic [ref=e517]: CMYK - 12/9/9/0
+                      - text: 󶃇
+                    - button "RGB - 221/222/223" [ref=e518] [cursor=pointer]:
+                      - generic [ref=e519]: RGB - 221/222/223
+                      - text: 󶃇
+                    - 'button "HEX - #dddedf" [ref=e520] [cursor=pointer]':
+                      - generic [ref=e521]: "HEX - #dddedf"
+                      - text: 󶃇
+                  - generic [ref=e522]:
+                    - generic [ref=e523]: 󶀶
+                    - text: 30%
+                - generic [ref=e525]:
+                  - generic [ref=e526]:
+                    - button "PMS - Cool Gray 7 C" [ref=e527] [cursor=pointer]:
+                      - generic [ref=e528]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 8/5/5/0" [ref=e529] [cursor=pointer]:
+                      - generic [ref=e530]: CMYK - 8/5/5/0
+                      - text: 󶃇
+                    - button "RGB - 232/233/233" [ref=e531] [cursor=pointer]:
+                      - generic [ref=e532]: RGB - 232/233/233
+                      - text: 󶃇
+                    - 'button "HEX - #e8e9e9" [ref=e533] [cursor=pointer]':
+                      - generic [ref=e534]: "HEX - #e8e9e9"
+                      - text: 󶃇
+                  - generic [ref=e535]:
+                    - generic [ref=e536]: 󶀶
+                    - text: 20%
+                - generic [ref=e538]:
+                  - generic [ref=e539]:
+                    - button "PMS - Cool Gray 7 C" [ref=e540] [cursor=pointer]:
+                      - generic [ref=e541]: PMS - Cool Gray 7 C
+                      - text: 󶃇
+                    - button "CMYK - 4/2/2/0" [ref=e542] [cursor=pointer]:
+                      - generic [ref=e543]: CMYK - 4/2/2/0
+                      - text: 󶃇
+                    - button "RGB - 243/243/243" [ref=e544] [cursor=pointer]:
+                      - generic [ref=e545]: RGB - 243/243/243
+                      - text: 󶃇
+                    - 'button "HEX - #f3f3f3" [ref=e546] [cursor=pointer]':
+                      - generic [ref=e547]: "HEX - #f3f3f3"
+                      - text: 󶃇
+                  - generic [ref=e548]:
+                    - generic [ref=e549]: 󶀶
+                    - text: 10%
+            - region [ref=e555]:
+              - generic [ref=e556]:
+                - heading "Pantone 362 C" [level=3] [ref=e559]
+                - generic [ref=e561]:
+                  - generic [ref=e562]:
+                    - button "PMS - 362 C" [ref=e563] [cursor=pointer]:
+                      - generic [ref=e564]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 74/15/100/2" [ref=e565] [cursor=pointer]:
+                      - generic [ref=e566]: CMYK - 74/15/100/2
+                      - text: 󶃇
+                    - button "RGB - 76/156/46" [ref=e567] [cursor=pointer]:
+                      - generic [ref=e568]: RGB - 76/156/46
+                      - text: 󶃇
+                    - 'button "HEX - #4c9c2e" [ref=e569] [cursor=pointer]':
+                      - generic [ref=e570]: "HEX - #4c9c2e"
+                      - text: 󶃇
+                  - generic [ref=e571]:
+                    - generic [ref=e572]: 󶀶
+                    - text: 100%
+                - generic [ref=e574]:
+                  - generic [ref=e575]:
+                    - button "PMS - 362 C" [ref=e576] [cursor=pointer]:
+                      - generic [ref=e577]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 68/13/100/1" [ref=e578] [cursor=pointer]:
+                      - generic [ref=e579]: CMYK - 68/13/100/1
+                      - text: 󶃇
+                    - button "RGB - 96/166/68" [ref=e580] [cursor=pointer]:
+                      - generic [ref=e581]: RGB - 96/166/68
+                      - text: 󶃇
+                    - 'button "HEX - #60a644" [ref=e582] [cursor=pointer]':
+                      - generic [ref=e583]: "HEX - #60a644"
+                      - text: 󶃇
+                  - generic [ref=e584]:
+                    - generic [ref=e585]: 󶀶
+                    - text: 90%
+                - generic [ref=e587]:
+                  - generic [ref=e588]:
+                    - button "PMS - 362 C" [ref=e589] [cursor=pointer]:
+                      - generic [ref=e590]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 60/10/86/0" [ref=e591] [cursor=pointer]:
+                      - generic [ref=e592]: CMYK - 60/10/86/0
+                      - text: 󶃇
+                    - button "RGB - 115/176/89" [ref=e593] [cursor=pointer]:
+                      - generic [ref=e594]: RGB - 115/176/89
+                      - text: 󶃇
+                    - 'button "HEX - #73b059" [ref=e595] [cursor=pointer]':
+                      - generic [ref=e596]: "HEX - #73b059"
+                      - text: 󶃇
+                  - generic [ref=e597]:
+                    - generic [ref=e598]: 󶀶
+                    - text: 80%
+                - generic [ref=e600]:
+                  - generic [ref=e601]:
+                    - button "PMS - 362 C" [ref=e602] [cursor=pointer]:
+                      - generic [ref=e603]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 52/7/75/0" [ref=e604] [cursor=pointer]:
+                      - generic [ref=e605]: CMYK - 52/7/75/0
+                      - text: 󶃇
+                    - button "RGB - 132/186/109" [ref=e606] [cursor=pointer]:
+                      - generic [ref=e607]: RGB - 132/186/109
+                      - text: 󶃇
+                    - 'button "HEX - #84ba6d" [ref=e608] [cursor=pointer]':
+                      - generic [ref=e609]: "HEX - #84ba6d"
+                      - text: 󶃇
+                  - generic [ref=e610]:
+                    - generic [ref=e611]: 󶀶
+                    - text: 70%
+                - generic [ref=e613]:
+                  - generic [ref=e614]:
+                    - button "PMS - 362 C" [ref=e615] [cursor=pointer]:
+                      - generic [ref=e616]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 44/5/64/0" [ref=e617] [cursor=pointer]:
+                      - generic [ref=e618]: CMYK - 44/5/64/0
+                      - text: 󶃇
+                    - button "RGB - 150/196/130" [ref=e619] [cursor=pointer]:
+                      - generic [ref=e620]: RGB - 150/196/130
+                      - text: 󶃇
+                    - 'button "HEX - #96c482" [ref=e621] [cursor=pointer]':
+                      - generic [ref=e622]: "HEX - #96c482"
+                      - text: 󶃇
+                  - generic [ref=e623]:
+                    - generic [ref=e624]: 󶀶
+                    - text: 60%
+                - generic [ref=e626]:
+                  - generic [ref=e627]:
+                    - button "PMS - 362 C" [ref=e628] [cursor=pointer]:
+                      - generic [ref=e629]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 34/4/52/0" [ref=e630] [cursor=pointer]:
+                      - generic [ref=e631]: CMYK - 34/4/52/0
+                      - text: 󶃇
+                    - button "RGB - 168/205/149" [ref=e632] [cursor=pointer]:
+                      - generic [ref=e633]: RGB - 168/205/149
+                      - text: 󶃇
+                    - 'button "HEX - #a8cd95" [ref=e634] [cursor=pointer]':
+                      - generic [ref=e635]: "HEX - #a8cd95"
+                      - text: 󶃇
+                  - generic [ref=e636]:
+                    - generic [ref=e637]: 󶀶
+                    - text: 50%
+                - generic [ref=e639]:
+                  - generic [ref=e640]:
+                    - button "PMS - 362 C" [ref=e641] [cursor=pointer]:
+                      - generic [ref=e642]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 29/2/41/0" [ref=e643] [cursor=pointer]:
+                      - generic [ref=e644]: CMYK - 29/2/41/0
+                      - text: 󶃇
+                    - button "RGB - 185/215/170" [ref=e645] [cursor=pointer]:
+                      - generic [ref=e646]: RGB - 185/215/170
+                      - text: 󶃇
+                    - 'button "HEX - #b9d7aa" [ref=e647] [cursor=pointer]':
+                      - generic [ref=e648]: "HEX - #b9d7aa"
+                      - text: 󶃇
+                  - generic [ref=e649]:
+                    - generic [ref=e650]: 󶀶
+                    - text: 40%
+                - generic [ref=e652]:
+                  - generic [ref=e653]:
+                    - button "PMS - 362 C" [ref=e654] [cursor=pointer]:
+                      - generic [ref=e655]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 37/4/52/0" [ref=e656] [cursor=pointer]:
+                      - generic [ref=e657]: CMYK - 37/4/52/0
+                      - text: 󶃇
+                    - button "RGB - 168/205/149" [ref=e658] [cursor=pointer]:
+                      - generic [ref=e659]: RGB - 168/205/149
+                      - text: 󶃇
+                    - 'button "HEX - #a8cd95" [ref=e660] [cursor=pointer]':
+                      - generic [ref=e661]: "HEX - #a8cd95"
+                      - text: 󶃇
+                  - generic [ref=e662]:
+                    - generic [ref=e663]: 󶀶
+                    - text: 30%
+                - generic [ref=e665]:
+                  - generic [ref=e666]:
+                    - button "PMS - 362 C" [ref=e667] [cursor=pointer]:
+                      - generic [ref=e668]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 14/1/20/0" [ref=e669] [cursor=pointer]:
+                      - generic [ref=e670]: CMYK - 14/1/20/0
+                      - text: 󶃇
+                    - button "RGB - 219/234/211" [ref=e671] [cursor=pointer]:
+                      - generic [ref=e672]: RGB - 219/234/211
+                      - text: 󶃇
+                    - 'button "HEX - #dbead3" [ref=e673] [cursor=pointer]':
+                      - generic [ref=e674]: "HEX - #dbead3"
+                      - text: 󶃇
+                  - generic [ref=e675]:
+                    - generic [ref=e676]: 󶀶
+                    - text: 20%
+                - generic [ref=e678]:
+                  - generic [ref=e679]:
+                    - button "PMS - 362 C" [ref=e680] [cursor=pointer]:
+                      - generic [ref=e681]: PMS - 362 C
+                      - text: 󶃇
+                    - button "CMYK - 6/0/9/0" [ref=e682] [cursor=pointer]:
+                      - generic [ref=e683]: CMYK - 6/0/9/0
+                      - text: 󶃇
+                    - button "RGB - 236/244/232" [ref=e684] [cursor=pointer]:
+                      - generic [ref=e685]: RGB - 236/244/232
+                      - text: 󶃇
+                    - 'button "HEX - #ecf4e8" [ref=e686] [cursor=pointer]':
+                      - generic [ref=e687]: "HEX - #ecf4e8"
+                      - text: 󶃇
+                  - generic [ref=e688]:
+                    - generic [ref=e689]: 󶀶
+                    - text: 10%
+  - contentinfo [ref=e696]:
+    - generic [ref=e698]:
+      - generic [ref=e706]:
+        - heading "Employee Support" [level=3] [ref=e707]
+        - paragraph [ref=e708]:
+          - link "Critical Incident Response" [ref=e709] [cursor=pointer]:
+            - /url: /redir/232437
+        - paragraph [ref=e710]:
+          - link "Employee Benefits" [ref=e711] [cursor=pointer]:
+            - /url: /redir/163424
+        - paragraph [ref=e712]:
+          - link "Employee Wellness" [ref=e713] [cursor=pointer]:
+            - /url: /redir/163488
+        - paragraph [ref=e714]:
+          - link "Human Resources" [ref=e715] [cursor=pointer]:
+            - /url: /redir/141920
+        - paragraph [ref=e716]:
+          - link "Staff Directory" [ref=e717] [cursor=pointer]:
+            - /url: https://directory.aws.stthomas.edu/
+      - generic [ref=e718]:
+        - heading "Technical Support" [level=3] [ref=e726]
+        - link "󶅳 Report a Website Issue" [ref=e731] [cursor=pointer]:
+          - /url: https://stthomas.az1.qualtrics.com/jfe/form/SV_29nqe0td5nH798q
+          - generic [ref=e732]: 󶅳
+          - generic [ref=e734]: Report a Website Issue
+        - link "󶑡 Tech Desk Hours and Contact Info" [ref=e739] [cursor=pointer]:
+          - /url: https://services.stthomas.edu/TDClient/1898/ClientPortal/KB/ArticleDet?ID=106674
+          - generic [ref=e740]: 󶑡
+          - generic [ref=e742]: Tech Desk Hours and Contact Info
+      - generic [ref=e743]:
+        - heading "Campus Services" [level=3] [ref=e751]
+        - link "󶌮 Campus Safety" [ref=e756] [cursor=pointer]:
+          - /url: https://www.stthomas.edu/public-safety/
+          - generic [ref=e757]: 󶌮
+          - generic [ref=e759]: Campus Safety
+        - link "󶉻 Facilities and Maintenance" [ref=e764] [cursor=pointer]:
+          - /url: https://one.stthomas.edu/sites/facilities-management
+          - generic [ref=e765]: 󶉻
+          - generic [ref=e767]: Facilities and Maintenance

@@ -297,6 +297,18 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
   - Replace `{ProjectName}` with `project.name` from cumulusci.yml
 - **Document manual steps**: If manual creation required, note it for future deploys
 
+## Custom Object & App Metadata Gotchas ⚠️
+- **AutoNumber max 10 digits** — `displayFormat` supports at most 10 zeros; `{00000000000}` (11) fails with "No more than 10 digits allowed". Error appears on the object itself but cascades to ALL dependent fields, classes, triggers, and LWC.
+- **Empty object-meta.xml cascades everywhere** — If a `CustomObject` XML file is empty (0 bytes), ALL dependent fields, Apex classes, triggers, and LWC fail with `"Entity 'ObjectName__c' not found"`. The error messages point to the dependents, not the empty file — always check the object XML first when you see widespread "Entity not found" errors.
+- **Required Lookup needs `deleteConstraint`** — A Lookup field with `<required>true</required>` MUST include `<deleteConstraint>Restrict</deleteConstraint>` (or `Cascade`). Without it: `"must specify either cascade delete or restrict delete for required lookup foreign key"`.
+- **Master-Detail requires `ControlledByParent` sharing** — Objects with a Master-Detail relationship must set BOTH `<sharingModel>ControlledByParent</sharingModel>` and `<externalSharingModel>ControlledByParent</externalSharingModel>` in the object-meta.xml.
+- **Lightning App needs `<tabs>` for navigation** — A `CustomApplication` with `<uiType>Lightning</uiType>` needs `<tabs>TabName</tabs>` elements to populate the sidebar. Without them, the app renders with an empty nav bar.
+- **FlexiPage tab** — To add a custom FlexiPage (AppPage) to app navigation, create a `CustomTab` with `<flexiPage>PageApiName</flexiPage>` (not `<customObject>`), then reference that tab name in the app's `<tabs>` list.
+- **Deploy order for apps**: Objects → Tabs → FlexiPages → Applications. Each layer references the previous one; deploying out of order causes "not found" errors.
+- **Iterative deploy-fix cycle** — When `cci flow run dev_org` fails, each fix-and-redeploy may reveal the NEXT cascading error. Delete the scratch org (`cci org scratch_delete dev`) before re-running `dev_org` to avoid stale state.
+- **Permission Set field exclusions** — You CANNOT include `fieldPermissions` for: required fields (`<required>true</required>`), Master-Detail relationship fields, or Rollup Summary fields. Salesforce returns `"You cannot deploy to a required field"` and only reports ONE offending field per deploy attempt, so scan the object metadata for ALL `<required>true</required>` fields upfront.
+- **No `--` inside XML comments** — The XML spec forbids the string `--` anywhere between `<!--` and `-->`. This includes words like "read-only" or phrases like "editable -- users can...". Use a colon or other separator instead.
+
 ## Flow & Metadata Cleanup Gotcha ⚠️
 - **Cannot delete an Apex class referenced by a flow** until ALL flow versions are removed first
   - Error: `Can't delete this Apex Class because it's referenced by the "FlowName" flow version 1 ... version 2`

@@ -1,0 +1,290 @@
+- generic [active] [ref=e1]:
+  - navigation "Skip navigation":
+    - link "Skip to primary content" [ref=e2] [cursor=pointer]:
+      - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Alumni" [ref=e8] [cursor=pointer]:
+          - /url: https://alumni.stthomas.edu
+        - link "University of St. Thomas" [ref=e9] [cursor=pointer]:
+          - /url: https://www.stthomas.edu/
+          - generic [ref=e10]: University of St. Thomas
+          - img [ref=e11]
+      - generic [ref=e16]:
+        - list [ref=e17]:
+          - listitem [ref=e18]:
+            - link "Update Contact Info" [ref=e19] [cursor=pointer]:
+              - /url: https://alumni.stthomas.edu/update-contact-information/index.html
+          - listitem [ref=e20]:
+            - link "Make a Gift" [ref=e21] [cursor=pointer]:
+              - /url: https://give.stthomas.edu/index.html
+        - button "Info For" [ref=e22] [cursor=pointer]
+    - generic [ref=e24]:
+      - navigation [ref=e25]:
+        - list [ref=e26]:
+          - listitem [ref=e27]:
+            - button "About" [ref=e28] [cursor=pointer]
+          - listitem [ref=e29]:
+            - button "Benefits & Resources" [ref=e30] [cursor=pointer]
+          - listitem [ref=e31]:
+            - button "Get Involved" [ref=e32] [cursor=pointer]
+          - listitem [ref=e33]:
+            - button "News & Events" [ref=e34] [cursor=pointer]
+          - listitem [ref=e35]:
+            - button "Support St. Thomas" [ref=e36] [cursor=pointer]
+      - button "Toggle search" [ref=e37] [cursor=pointer]:
+        - generic [ref=e38]: Toggle search
+  - link "University of St. Thomas" [ref=e39] [cursor=pointer]:
+    - /url: https://alumni.stthomas.edu
+    - generic [ref=e40]: University of St. Thomas
+    - img [ref=e41]
+  - generic [ref=e46]:
+    - generic [ref=e48]:
+      - paragraph [ref=e49]: Lifelong Value, Just for Tommies
+      - heading "Benefits and Resources" [level=1] [ref=e50]
+      - paragraph [ref=e52]: Being a Tommie comes with more than memories — it comes with lifelong benefits. From career resources to exclusive opportunities, your St. Thomas connection continues to open doors and add value long after graduation.
+    - generic [ref=e53]:
+      - link "Home" [ref=e54] [cursor=pointer]:
+        - /url: https://alumni.stthomas.edu/index.html
+      - text: / Benefits and Resources
+  - main [ref=e55]:
+    - generic [ref=e56]:
+      - generic [ref=e57]:
+        - heading "Explore Core Alumni Benefits" [level=2] [ref=e61]
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - img "Students talking with prospective employers at the career fair." [ref=e65]
+            - generic [ref=e66]:
+              - heading "Career Resources" [level=3] [ref=e67]:
+                - link "Career Resources" [ref=e68] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/career/index.html
+              - paragraph
+              - paragraph [ref=e69]: Whether you’re starting out, moving up or planning for what's next in retirement, St. Thomas is here to support your growth and success at every stage of your career.
+              - paragraph
+          - generic [ref=e70]:
+            - img "A professor watches over group work during an Executive Education class" [ref=e72]
+            - generic [ref=e73]:
+              - heading "Continuing Education & Lifelong Learning" [level=3] [ref=e74]:
+                - link "Continuing Education & Lifelong Learning" [ref=e75] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/continuing-education/index.html
+              - paragraph
+              - paragraph [ref=e76]: From webinars and professional development to certificate and graduate programs, St. Thomas offers endless ways to keep learning and expanding your horizons.
+              - paragraph
+          - generic [ref=e77]:
+            - img "Students pray in Chapel of St. Thomas Aquinas" [ref=e79]
+            - generic [ref=e80]:
+              - heading "Faith & Spirituality" [level=3] [ref=e81]:
+                - link "Faith & Spirituality" [ref=e82] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/faith-spirituality/index.html
+              - paragraph
+              - paragraph [ref=e83]: Rooted in the Catholic intellectual tradition, St. Thomas invites alumni to stay connected through opportunities for faith, reflection and service — living out our mission in community with fellow Tommies.
+              - paragraph
+          - generic [ref=e84]:
+            - img "Alumni toasting cheers at a pregame social" [ref=e86]
+            - generic [ref=e87]:
+              - heading "Alumni Events" [level=3] [ref=e88]:
+                - link "Alumni Events" [ref=e89] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/events/index.html
+              - paragraph
+              - paragraph [ref=e90]: Stay connected through events that bring Tommies together to network, learn, celebrate and show your St. Thomas pride — on campus and beyond.
+              - paragraph
+      - generic [ref=e93]:
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - paragraph [ref=e102]: Network & Mentor
+            - heading "St. Thomas Connect" [level=2] [ref=e103]
+            - paragraph [ref=e104]: This is one of our most powerful tools for alumni at all stages of life — whether you're giving back, building your network, or both.
+            - paragraph [ref=e105]: St. Thomas Connect makes it easy to mentor students or fellow alumni, share career insights, grow your professional network, or reconnect with old classmates. You can also find a mentor for yourself. With new members joining all the time, there's always an opportunity to make a meaningful impact.
+          - link "Join St. Thomas Connect" [ref=e107] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/get-involved/join-st-thomas-connect/index.html
+        - figure [ref=e109]:
+          - img "Students connect with employers during St. Thomas Career Fair" [ref=e110]
+      - generic [ref=e111]:
+        - heading "Exclusive Alumni Perks" [level=2] [ref=e113]
+        - generic [ref=e114]:
+          - generic [ref=e115]:
+            - heading "Financial Benefits from U.S. Bank" [level=3] [ref=e116]:
+              - link "Financial Benefits from U.S. Bank" [ref=e117] [cursor=pointer]:
+                - /url: https://alumni.stthomas.edu/benefits-resources/financial/index.html
+            - paragraph [ref=e119]: St. Thomas partners with U.S. Bank to help you elevate your financial wellness. As a member of the St. Thomas alumni community, you have exclusive access to tools, tips, resources and rewards.
+          - generic [ref=e120]:
+            - heading "Alumni Insurance Program" [level=3] [ref=e121]:
+              - link "Alumni Insurance Program" [ref=e122] [cursor=pointer]:
+                - /url: "https://www.alumniinsuranceprogram.com/stthomas/ "
+            - paragraph [ref=e124]: St. Thomas is pleased to offer the Alumni Insurance Program to all alumni. Administered by USI Insurance Services, the program includes offerings such as health, life, auto, home and travel insurance.
+          - generic [ref=e125]:
+            - heading "St. Thomas-branded License Plates" [level=3] [ref=e126]:
+              - link "St. Thomas-branded License Plates" [ref=e127] [cursor=pointer]:
+                - /url: https://dps.mn.gov/divisions/dvs/vehicle/license-plates/specialized-license-plates/collegiate-specialized-license-plates
+            - paragraph [ref=e129]: Show your St. Thomas pride while making a difference! Through the Minnesota Collegiate Plate program, you can sport branded license plates and support Tommie scholarships.
+          - generic [ref=e130]:
+            - heading "Tommie Business Directory" [level=3] [ref=e131]
+            - generic [ref=e132]:
+              - strong [ref=e133]: Coming soon!
+              - paragraph [ref=e134]: Alumni entrepreneurs are making an impact in communities far and wide. Check out our list of Tommie-owned businesses and support a fellow Tommie today.
+          - generic [ref=e135]:
+            - heading "St. Thomas Lawyer Search" [level=3] [ref=e136]:
+              - link "St. Thomas Lawyer Search" [ref=e137] [cursor=pointer]:
+                - /url: https://law.stthomas.edu/lawyer-search/index.html
+            - paragraph [ref=e139]: Need a lawyer? Hire a St. Thomas law school graduate! Visit the Lawyer Search free online alumni directory to access client-centered attorneys in a variety of practice areas.
+          - generic [ref=e140]:
+            - heading "Local Hotel Discounts" [level=3] [ref=e141]:
+              - link "Local Hotel Discounts" [ref=e142] [cursor=pointer]:
+                - /url: https://www.stthomas.edu/admissions/undergraduate/campus-visits/accommodations/index.html
+            - paragraph [ref=e144]: Planning a visit to St. Thomas and need to book a hotel? We've partnered with area hotels for discounted rates.
+      - generic [ref=e145]:
+        - 'heading "Still Here for You: University Resources for Alumni" [level=2] [ref=e146]'
+        - generic [ref=e147]:
+          - heading "Apparel and Gifts" [level=3] [ref=e148]:
+            - button "Apparel and Gifts" [ref=e149] [cursor=pointer]
+          - heading "Athletics Tickets" [level=3] [ref=e150]:
+            - button "Athletics Tickets" [ref=e151] [cursor=pointer]
+          - heading "Diplomas and Transcripts" [level=3] [ref=e152]:
+            - button "Diplomas and Transcripts" [ref=e153] [cursor=pointer]
+          - heading "Library Access and Materials" [level=3] [ref=e154]:
+            - button "Library Access and Materials" [ref=e155] [cursor=pointer]
+          - heading "Gym Membership and Fitness Facilities" [level=3] [ref=e156]:
+            - button "Gym Membership and Fitness Facilities" [ref=e157] [cursor=pointer]
+          - heading "St. Thomas Archives" [level=3] [ref=e158]:
+            - button "St. Thomas Archives" [ref=e159] [cursor=pointer]
+      - generic [ref=e162]:
+        - generic [ref=e164]:
+          - heading "Have a Question?" [level=2] [ref=e165]
+          - paragraph [ref=e166]: Looking for more information about a St. Thomas alumni benefit? Connect with Alumni Engagement to get your questions answered.
+        - paragraph [ref=e167]:
+          - link "Contact Your Alumni Engagement Team" [ref=e168] [cursor=pointer]:
+            - /url: https://alumni.stthomas.edu/contact/index.html
+  - contentinfo [ref=e175]:
+    - generic [ref=e176]:
+      - link "University of St. Thomas" [ref=e177] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e178]: University of St. Thomas
+        - img [ref=e179]
+      - paragraph [ref=e185]:
+        - text: University of St. Thomas, Minnesota
+        - text: 2115 Summit Avenue
+        - text: St. Paul, Minnesota 55105 USA
+      - paragraph [ref=e186]:
+        - link "Contact Alumni Engagment" [ref=e187] [cursor=pointer]:
+          - /url: https://alumni.stthomas.edu/contact/index.html
+        - link "Update your Contact Info" [ref=e188] [cursor=pointer]:
+          - /url: https://alumni.stthomas.edu/update-contact-information/index.html
+        - link "Request a Transcript" [ref=e189] [cursor=pointer]:
+          - /url: https://www.stthomas.edu/registrar/alumni-former-student-information/index.html
+      - generic [ref=e190]:
+        - link "Facebook" [ref=e191] [cursor=pointer]:
+          - /url: https://www.facebook.com/tommiealumni/
+          - generic [ref=e192]: Facebook
+          - img [ref=e193]
+        - link "Instagram" [ref=e195] [cursor=pointer]:
+          - /url: https://www.instagram.com/tommiealumni/
+          - generic [ref=e196]: Instagram
+          - img [ref=e197]
+        - link "LinkedIn" [ref=e199] [cursor=pointer]:
+          - /url: https://www.linkedin.com/school/universityofstthomas/
+          - generic [ref=e200]: LinkedIn
+          - img [ref=e201]
+        - link "TikTok" [ref=e203] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@universityofstthomas/
+          - generic [ref=e204]: TikTok
+          - img [ref=e205]
+        - link "X" [ref=e207] [cursor=pointer]:
+          - /url: https://twitter.com/tommiealumni/
+          - generic [ref=e208]: X
+          - img [ref=e209]
+        - link "YouTube" [ref=e211] [cursor=pointer]:
+          - /url: https://www.youtube.com/universityofstthomas/
+          - generic [ref=e212]: YouTube
+          - img [ref=e213]
+      - paragraph [ref=e216]: © 2026 University of St. Thomas, Minnesota
+    - generic [ref=e217]:
+      - navigation [ref=e218]:
+        - generic [ref=e219]:
+          - generic [ref=e220]:
+            - generic [ref=e221]: Benefits & Resources
+            - list [ref=e222]:
+              - listitem [ref=e223]:
+                - link "Career Resources" [ref=e224] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/career/index.html
+              - listitem [ref=e225]:
+                - link "Continuing Education" [ref=e226] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/continuing-education/index.html
+              - listitem [ref=e227]:
+                - link "Faith & Spirituality" [ref=e228] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/faith-spirituality/index.html
+              - listitem [ref=e229]:
+                - link "Financial Wellness" [ref=e230] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/benefits-resources/financial/index.html
+          - generic [ref=e231]:
+            - generic [ref=e232]: Get Involved
+            - list [ref=e233]:
+              - listitem [ref=e234]:
+                - link "Join St. Thomas Connect" [ref=e235] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/get-involved/join-st-thomas-connect/index.html
+              - listitem [ref=e236]:
+                - link "Corporate Alumni Groups" [ref=e237] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/get-involved/corporate-alumni-groups/index.html
+              - listitem [ref=e238]:
+                - link "Social Media Directory" [ref=e239] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/get-involved/social-media/index.html
+              - listitem [ref=e240]:
+                - link "Alumni Engagement Board" [ref=e241] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/about/alumni-engagement-board/index.html
+        - generic [ref=e242]:
+          - generic [ref=e243]:
+            - generic [ref=e244]: News & Events
+            - list [ref=e245]:
+              - listitem [ref=e246]:
+                - link "Alumni Stories" [ref=e247] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/news/stories/index.html
+              - listitem [ref=e248]:
+                - link "Alumni Newsletter" [ref=e249] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/news/newsletter/index.html
+              - listitem [ref=e250]:
+                - link "St. Thomas News" [ref=e251] [cursor=pointer]:
+                  - /url: https://news.stthomas.edu/
+              - listitem [ref=e252]:
+                - link "Signature Events" [ref=e253] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/events/index.html#signature-events
+              - listitem [ref=e254]:
+                - link "Events Calendar" [ref=e255] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/events/calendar/index.html
+          - generic [ref=e256]:
+            - generic [ref=e257]: Support St. Thomas
+            - list [ref=e258]:
+              - listitem [ref=e259]:
+                - link "Refer a Student" [ref=e260] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/refer-a-student/index.html
+              - listitem [ref=e261]:
+                - link "Mentor a Student" [ref=e262] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/mentor-a-student/index.html
+              - listitem [ref=e263]:
+                - link "Hire a Tommie" [ref=e264] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/hire-a-tommie/index.html
+              - listitem [ref=e265]:
+                - link "Volunteer" [ref=e266] [cursor=pointer]:
+                  - /url: https://alumni.stthomas.edu/support-st-thomas/volunteer/index.html
+              - listitem [ref=e267]:
+                - link "Make a Gift" [ref=e268] [cursor=pointer]:
+                  - /url: https://give.stthomas.edu/
+      - list [ref=e270]:
+        - listitem [ref=e271]:
+          - link "Report a Website Problem" [ref=e272] [cursor=pointer]:
+            - /url: https://stthomas.az1.qualtrics.com/jfe/form/SV_29nqe0td5nH798q
+        - listitem [ref=e273]:
+          - link "EO Statement" [ref=e274] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/policies/equal-opportunity/
+        - listitem [ref=e275]:
+          - link "Accessibility" [ref=e276] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/accessibility-statement/index.html
+        - listitem [ref=e277]:
+          - link "Privacy Policy" [ref=e278] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/policies/online-privacy/index.html
+        - listitem [ref=e279]:
+          - link "Emergency" [ref=e280] [cursor=pointer]:
+            - /url: https://www.stthomas.edu/emergency/index.html
+    - link "Back to Top" [ref=e281] [cursor=pointer]:
+      - /url: "#top"
+      - text: Back to Top
+      - img [ref=e283]
