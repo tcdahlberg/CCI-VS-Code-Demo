@@ -18,6 +18,16 @@ These instructions apply across ALL projects. When adding or updating content he
 - IntelliJ IDEA + Illuminated Cloud plugin
 - Tools installed: Node.js, Python 3.13, CumulusCI, Salesforce CLI (sf), PurgeCSS, Playwright, BackstopJS, fd, bat, ripgrep, tokei, jq
 
+## Security Rules ⚠️
+- **NEVER store passwords, API keys, tokens, secrets, or credentials in any log file, output file, or any other file that is tracked by git or written to the project directory.**
+  - ❌ Writing a credential to `ai-logs/`, project root, `docs/`, or any tracked path
+  - ❌ Echoing a credential value to a terminal command that pipes to a file (e.g., `| Out-File`, `| Tee-Object`, `> file.txt`)
+  - ✅ Reference credentials via environment variables only: `$env:SF_USERNAME`, `$env:SF_PASSWORD`, `$env:MY_API_KEY`
+  - ✅ If a credential must be passed to a command, pass it inline in the terminal without saving it anywhere
+- **`ai-logs/` is gitignored but not safe for secrets** — treat it the same as any tracked path; other tools or accidental `git add -f` can expose it
+- **If a task requires a credential, prompt the user to set it as an environment variable** before running the command; never ask the user to type it into a file or a command that saves output
+- **Never print credential values in explanations, code comments, or chat responses**
+
 ## Key Commands
 - Salesforce: `cci org list`, `cci org info`
 - **Targeted Deploy**: `cci task run deploy --path force-app/main/default/lwc --org dev`
@@ -46,6 +56,16 @@ These instructions apply across ALL projects. When adding or updating content he
   - Use clear naming: MAIN_GUIDE.md, TROUBLESHOOTING.md, etc.
 
 ## Code Style Preferences
+- **Use full, unabbreviated camelCase names** — variable names, method names, and local parameters should be written out in full camelCase words with no abbreviations, whenever possible. Prioritize human readability over brevity.
+  - ❌ `getPmtHist()`, `calcEngScore()`, `usr`, `cfg`, `evt`, `btn`, `idx`, `cnt`, `mgr`, `svc`
+  - ✅ `getPaymentHistory()`, `calculateEngagementScore()`, `user`, `configuration`, `event`, `button`, `index`, `count`, `manager`, `service`
+  - **Exceptions** (abbreviations that are unavoidable or are universally understood conventions):
+    - Salesforce API / metadata names (`@api`, `@wire`, `AuraEnabled`, field API names like `Account__c`)
+    - Framework-required signatures (`connectedCallback`, `disconnectedCallback`, `lwc:if`)
+    - Loop counters where `i`, `j` are idiomatic in a tight indexed loop
+    - Acronyms that ARE the full word (`url`, `id`, `dto`, `html`, `css`, `json`, `api`)
+    - Apex system types (`SObject`, `DML`, `SOQL` in comments)
+
 - **Always use braces on control-flow statements** — `if`, `else`, `for`, `while`, `for...of`, etc. must always have curly braces, even for single-line bodies. This applies to all languages (Apex, JavaScript, TypeScript).
   - ❌ `if (condition) doSomething();`
   - ✅ `if (condition) { doSomething(); }`
@@ -155,6 +175,40 @@ Scratch orgs may contain pre-defined sample data at varying configurations. Not 
 5. Run `backstop approve` when intentional design improvements are accepted as new baseline
 
 ## LWC Development (Proven Patterns)
+
+### Third-Party JavaScript Libraries (loadScript)
+- **Standard pattern** — load in `renderedCallback()` with a guard flag, await `Promise.all`, then call the library directly:
+  ```javascript
+  /* global MyLibrary */   // tells ESLint this identifier comes from an external script
+
+  fullCalendarInitialized = false;
+
+  async renderedCallback() {
+      if (this.fullCalendarInitialized) { return; }
+      this.fullCalendarInitialized = true;
+      try {
+          await Promise.all([
+              loadScript(this, RESOURCE + '/lib/library.js'),
+              loadStyle(this, RESOURCE + '/lib/style.css'),
+          ]);
+          this._initLibrary();   // MyLibrary global is now accessible
+      } catch (error) {
+          this.errorMessage = 'Failed to load library.';
+      }
+  }
+
+  _initLibrary() {
+      const container = this.template.querySelector('.my-container');
+      const instance = new MyLibrary.SomeClass(container, config);
+  }
+  ```
+- **Access globals directly** — after `loadScript` resolves, the global (e.g. `FullCalendar`, `d3`) is accessible by name without `window.*`. LWS runs `loadScript` scripts in the same trusted realm as the component; `window.*` lookup may fail, but the bare identifier works.
+- **`/* global LibName */` comment** — always add this for each third-party global so ESLint doesn't flag it as undefined.
+- **Third-party library source files may use `var`** — that is expected for older libraries (`var FullCalendar = ...`). Do NOT rewrite library files; only your own code should use `const`/`let`.
+- **No bridge scripts needed** — the bridge/custom-event workaround is unnecessary when using the standard `loadScript` + direct global access pattern.
+- **Ref**: https://developer.salesforce.com/docs/platform/lwc/guide/js-third-party-library.html
+
+### Other LWC Patterns
 - **Reactivity**: NEVER mutate nested objects/arrays directly
   - ❌ `this.data.array[0].prop = value` (won't trigger re-render)
   - ✅ `this.data = {...this.data, array: [...newArray]}` (triggers reactivity)
