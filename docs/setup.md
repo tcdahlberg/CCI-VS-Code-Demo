@@ -15,6 +15,8 @@ Using an Code IDE of your choice and Cumulus CI will enable you to run the full 
 The following need to be installed on your computer in order to successfully develop using Cumulus CI:
 
 - [Salesforce Command Line Interface (Salesforce CLI)](https://developer.salesforce.com/tools/salesforcecli)
+
+  ```npm install @salesforce/cli --global```
 - [Git](https://git-scm.com/)
 - [GitHub desktop (optional)](https://desktop.github.com/download/)
 - [Visual Studio Code (VS Code)](https://code.visualstudio.com/)
