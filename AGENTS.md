@@ -38,4 +38,3 @@ The `~/.copilot/skills/` directory in this repo contains task-specific skill fil
 - **Shell:** PowerShell (Windows) — never use cmd syntax
 - **Org type:** Scratch orgs managed by CumulusCI
 - **Project-specific details** (org aliases, object names, URLs): check `docs/AI-TOOLS-CONFIG.md` in each project repo
-  ![img.png](img.png)
