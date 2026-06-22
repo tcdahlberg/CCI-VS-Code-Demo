@@ -595,4 +595,3 @@ GoalAssignment                       -- Partnerships --
 AcademicOrder
 PriceBookAcademicInterval
 ```
-
