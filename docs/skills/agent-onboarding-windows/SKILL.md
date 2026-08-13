@@ -146,6 +146,27 @@ public static Map<String, Object> getSummary(Id contactId) { ... }
 
 ---
 
+## Lightning Out Component Caching (Common Gotcha — Seen Across Multiple Projects)
+
+If an LWC is embedded via Lightning Out on a Visualforce/Site page (`$Lightning.use("c:someAuraApp", ...)` → `$Lightning.createComponent`) and the browser keeps showing stale behavior **even after a hard refresh**, don't assume the deploy failed — verify server-side first:
+
+```powershell
+sf data query --query "SELECT Source FROM LightningComponentResource WHERE LightningComponentBundle.DeveloperName = '<name>' AND FilePath LIKE '%.html'" --use-tooling-api --target-org <alias> --json
+```
+
+If the deployed source is already correct but the browser still renders the old version, this is **not a normal browser cache** — `Ctrl+Shift+R`, devtools "disable cache", and even manually clearing `localStorage`/`sessionStorage` do not fix it. The `auraCmpDef` endpoint serves LWC bundles with `Cache-Control: private, max-age=31536000, immutable`, keyed by a server-side "last recompile marker" (`_lrmc` query param, visible on the bootstrap `*.app?...` request). Redeploying the LWC bundle alone does **not** bump that marker, and the browser's own persistent Aura definition storage (IndexedDB-backed, survives normal reloads) keeps serving the old bundle indefinitely — sometimes without even issuing a new network request for it at all.
+
+**Fix:** make a genuine content change (not a no-op redeploy of identical bytes — that won't bump the marker) to the Aura app/component that declares the `<aura:dependency>` for the changed LWC, then redeploy just that bundle:
+
+```powershell
+# e.g. add/remove a comment line in the .app file — must be an actual byte diff
+cci task run deploy --path force-app/main/default/aura/<appName> --org <alias>
+```
+
+**Verify the fix landed** by checking browser network requests for a fresh `auraCmpDef` GET during page load — if that request is missing entirely, the browser served the definition from IndexedDB without even hitting the network, confirming it's still stale and the recompile marker still hasn't moved.
+
+---
+
 ## Windows / Line Ending Notes
 
 - **Windows uses CRLF (`\r\n`), Salesforce orgs use LF (`\n`)** — never compare file byte counts or line counts between local files and org to detect changes; always diff content directly.
