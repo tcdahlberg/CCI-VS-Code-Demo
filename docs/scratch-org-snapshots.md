@@ -9,7 +9,7 @@ sf org create snapshot --name alias_for_your_snapshot --source-org Scratch_org_n
 
 **Deletion**
 ```bash
-sf org delete snapshot --name name_of_snapshot --target-dev-hub dev_org_alias
+sf org delete snapshot --snapshot name_of_snapshot --target-dev-hub dev_org_alias
 ```
 
 **Listing**
