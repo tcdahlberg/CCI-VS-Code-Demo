@@ -9,9 +9,11 @@ allowed-tools: Bash Read Write
 
 # CumulusCI
 
+Commands are written for bash. On Windows PowerShell, translate them with the table in `agent-onboarding/references/os-windows.md` (line continuation, `Tee-Object`, `$env:`, `Remove-Item`).
+
 ## Key Commands Reference
 
-```powershell
+```bash
 cci org list                                                        # List all orgs (CCI aliases + SF CLI aliases)
 cci org info --org dev                                              # Get details for dev org (including sfdx_alias)
 cci task run deploy --path force-app/main/default/lwc --org dev    # Deploy LWC only
@@ -27,7 +29,7 @@ cci flow run dev_org --org dev                                      # Full org r
 
 ### ✅ Incremental Deploys (normal workflow)
 
-```powershell
+```bash
 # LWC only
 cci task run deploy --path force-app/main/default/lwc --org dev
 
@@ -43,13 +45,13 @@ cci task run deploy --path force-app/main/default/objects/ObjectName__c --org de
 
 ### ⚠️ Full Rebuild — Only for Initial Setup
 
-```powershell
+```bash
 cci flow run dev_org --org dev   # Creates a NEW scratch org — do NOT use for incremental changes
 ```
 
 ### SF CLI Alternative (targeted)
 
-```powershell
+```bash
 sf project deploy start --source-dir force-app/main/default/lwc --target-org {ProjectName}__dev
 ```
 
@@ -69,7 +71,7 @@ Get the SF CLI alias: `cci org info --org dev` — look for `sfdx_alias`.
 ### Running Tests
 
 **SF CLI (preferred for individual test classes):**
-```powershell
+```bash
 # Single class
 sf apex run test --class-names ClassName_TEST --target-org {ProjectName}__dev --result-format human --code-coverage --wait 20
 
@@ -81,7 +83,7 @@ sf apex run test --class-names Test1,Test2,Test3 --target-org {ProjectName}__dev
 - **Always add `--code-coverage`** — shows coverage percentages in output.
 
 **CumulusCI (for full validation/CI):**
-```powershell
+```bash
 cci task run run_tests --org dev                                    # All tests
 cci task run run_tests --org dev --test_name_match ClassName_TEST  # Specific class
 ```
@@ -95,12 +97,12 @@ cci task run run_tests --org dev --test_name_match ClassName_TEST  # Specific cl
 
 `ApexCodeCoverageAggregate` is in the Tooling API — always use `--use-tooling-api`:
 
-```powershell
-sf data query `
-  --query "SELECT ApexClassOrTrigger.Name, NumLinesCovered, NumLinesUncovered FROM ApexCodeCoverageAggregate WHERE NumLinesCovered + NumLinesUncovered > 0 ORDER BY ApexClassOrTrigger.Name" `
-  --target-org {ProjectName}__dev `
-  --use-tooling-api `
-  --result-format json 2>&1 | Tee-Object ai-logs/cov.json
+```bash
+sf data query \
+  --query "SELECT ApexClassOrTrigger.Name, NumLinesCovered, NumLinesUncovered FROM ApexCodeCoverageAggregate WHERE NumLinesCovered + NumLinesUncovered > 0 ORDER BY ApexClassOrTrigger.Name" \
+  --target-org {ProjectName}__dev \
+  --use-tooling-api \
+  --result-format json 2>&1 | tee ai-logs/cov.json
 ```
 
 **Coverage formula:** `(NumLinesCovered / (NumLinesCovered + NumLinesUncovered)) * 100 = Coverage %`
@@ -114,7 +116,7 @@ sf data query `
 - **"Test already enqueued"** — always add `--wait 20` (not just 10).
 - **`RestRequest.params` is final** — use `req.addParameter('key', 'value')` in tests, not a new map assignment.
 - **Coverage queries fail** — use `--use-tooling-api` flag.
-- **Blank table output in PowerShell** — use `--result-format json`.
+- **Blank table output (seen in Windows PowerShell)** — use `--result-format json`.
 - **Picklist value errors** — use actual active values from the org schema; never hardcode assumed values.
 - **Encryption key length** — must be exactly 32 bytes for AES256.
 - **Date parsing** — `Date.parse('02/12/2026')` is locale-dependent; use explicit date construction or catch exceptions.
@@ -163,11 +165,11 @@ sf data query `
 
 **Solutions (in order):**
 1. Deploy the entire object: `cci task run deploy --path force-app/main/default/objects/ObjectName__c --org dev`
-2. Clear cache: `Remove-Item -Path ".sf",".sfdx" -Recurse -Force`, then redeploy.
+2. Clear cache: `rm -rf .sf .sfdx`, then redeploy.
 3. **Manual creation** (most reliable): Setup → Object Manager → Fields → New.
 
 **Always verify** after field deploy:
-```powershell
+```bash
 sf data query --query "SELECT Id, NewField__c FROM Object__c LIMIT 1" --target-org {ProjectName}__dev
 ```
 
@@ -190,7 +192,7 @@ sf data query --query "SELECT Id, NewField__c FROM Object__c LIMIT 1" --target-o
 
 ## Metadata That Needs the Experience Site (or Anything Created Later in the Flow) Must Not Ride With `force-app`
 
-`deploy_unmanaged` pushes all of `force-app` early; `create_community` runs later in `config_dev`. Anything that references the site's guest user or its network fails the whole deploy if it is in `force-app`: a **`sharingGuestRules`** rule ("Specify a guest user's nickname for the guestUser field", reproduced), a **Sharing Set**. Put it in `unpackaged/config/<name>/` as a **raw MDAPI folder** (`package.xml` plus `sharingRules/<Object>.sharingRules`, no `-meta.xml`), add a `cumulusci.tasks.salesforce.Deploy` task with `unmanaged: True`, and slot it into the flow after `create_community` (for example step 5.7). Test it with `cci task run <task> --check_only True` first, then verify in the org (retrieve it back), since "Succeeded" is not proof (see the onboarding skill). Reusing a rule name with a different `sharedTo` fails with "Cannot change SharedTo when updating an existing Sharing Rule": delete and recreate instead.
+`deploy_unmanaged` pushes all of `force-app` early; `create_community` runs later in `config_dev`. Anything that references the site's guest user or its network fails the whole deploy if it is in `force-app`: a **`sharingGuestRules`** rule ("Specify a guest user's nickname for the guestUser field", reproduced), a **Sharing Set**. Put it in `unpackaged/config/<name>/` as a **raw MDAPI folder** (`package.xml` plus `sharingRules/<Object>.sharingRules`, no `-meta.xml`), add a `cumulusci.tasks.salesforce.Deploy` task with `unmanaged: True`, and slot it into the flow after `create_community` (for example step 5.7). Test it with `cci task run <task> --check_only True` first, then verify in the org (retrieve it back), since "Succeeded" is not proof (see `agent-onboarding/references/metadata-and-deploy.md`). Reusing a rule name with a different `sharedTo` fails with "Cannot change SharedTo when updating an existing Sharing Rule": delete and recreate instead.
 
 ---
 
@@ -234,15 +236,15 @@ sf data query --query "SELECT Id, NewField__c FROM Object__c LIMIT 1" --target-o
 
 ### Running
 
-```powershell
+```bash
 # Full scan — save JSON + HTML, fail on Moderate or higher (sev <= 3)
-sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --output-file ai-logs/code-analyzer.html --severity-threshold 3 2>&1 | Out-File ai-logs/ca-run.txt
+sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --output-file ai-logs/code-analyzer.html --severity-threshold 3 2>&1 | tee ai-logs/ca-run.txt
 
 # High/Critical only — faster feedback
-sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --severity-threshold 2 2>&1 | Out-File ai-logs/ca-run.txt
+sf code-analyzer run --target force-app/main/default --output-file ai-logs/code-analyzer.json --severity-threshold 2 2>&1 | tee ai-logs/ca-run.txt
 
 # Read summary
-Get-Content ai-logs/ca-run.txt | Select-Object -Last 20
+tail -20 ai-logs/ca-run.txt
 ```
 
 Config file: `code-analyzer.yml` in project root (auto-applied when running from root). Set `eslint_config_file: "eslint.config.js"` to use the project ESLint config.

@@ -155,7 +155,9 @@ for v in high:
 
 ---
 
-## Trust Deploy Success
+## Trust Deploy Success (For Source Deploys of Code)
 
-When CCI outputs `[Success]: Succeeded`, move on. Do not re-verify with extra queries unless something actually fails.
+When CCI outputs `[Success]: Succeeded` for a normal deploy of code from `force-app` (Apex, LWC, Aura), move on. Do not re-verify with extra queries unless something actually fails.
+
+Verify directly for anything else: a folder with its own `package.xml`, a task that wraps a manifest deploy, settings, Experience Cloud metadata, or a change that does not take effect. Those can report "Succeeded" for zero components. See `agent-onboarding/references/metadata-and-deploy.md`.
 
