@@ -80,6 +80,16 @@ These flag/argument quirks were not obvious from `--help` alone and cost extra r
 - **`search --json` returns a bare JSON array of issues**, not an object with an `issues` key — despite the human-readable interactive output implying a paginated result object. Parse accordingly (`for i in data:`, not `data['issues']`).
 - **`workitem view --json` returns the full raw Jira REST issue payload** (`changelog`, `editmeta`, `fields`, `names`, `schema`, `transitions`, etc.) but most of those top-level keys are `null` unless the request includes the right `expand` params, which `acli` doesn't appear to set by default. Don't rely on `editmeta`/`names`/`schema` from this output to discover custom-field IDs — they'll likely be empty.
 - **Link types available on this instance** (via `acli jira workitem link type`): `Blocks`, `Cloners`, `Discovery - Connected`, `Duplicate`, `Gantt End to End/Start`, `Polaris datapoint/merge/work item link`, `Problem/Incident`, `Relates`. Use `Relates` for general "these are connected" links between a new remediation issue and the issues it follows up on.
+- **Comments from the CLI:** `acli jira workitem comment create --key ECRMSF-123 --body-file comment.json` accepts ADF
+  (or plain text). Same ADF limits as descriptions: ASCII only, one mark per text run, no em dashes. `comment list --key K`
+  prints a wide table of all comments.
+- **Do not pipe `workitem create --json` into `head`** (for example `| tee file | head -20`): the pipe closes early, the
+  saved file is cut off and will not parse. Redirect to a file, then read the file; the key is in the `key` field.
+  Confirm subtask parenting with `search --jql "parent = KEY"` (that prints a human table; add `--json` to parse).
+- **`workitem view KEY --fields summary,status,assignee`** prints a short readable block (no JSON), good for status checks.
+- **A project-specific habit that worked:** keep ticket descriptions as generated ADF files from a small script, so a
+  wording change is one edit and one `workitem edit --description-file` per ticket. Statuses (Requested, In Development,
+  Done) are the product owner's to move; recommend, do not move.
 - **Board/project discovery path:** `acli jira board search --project ECRMSF --json` → gives board `id`. Then `acli jira board list-sprints --id <boardId> --state active,closed,future --json` → full sprint list including the named inactive buckets. Without `--state active,closed,future`, `list-sprints` can return an empty result — always pass all three states explicitly when trying to find a bucket that isn't the current active sprint.
 
 ---

@@ -253,6 +253,37 @@ If the property value doesn't match anything in the options list backing a combo
 
 ---
 
+## `lightning-record-edit-form` Fires `load` Again After Every Edit That Changes Its Field List (Silent State Reset)
+
+If a custom LWC wraps `lightning-record-edit-form` and copies the record into component state inside its `onload` handler, **do that copy once per record**. The form fires `load` again whenever its field list changes, and each repeat reports the *saved* values, not the user's edits. The classic trigger: a "type" picklist that reveals extra `lightning-input-field`s. Choosing a new type adds fields, the form re-fetches, `load` fires 2 to 3 more times, and the handler overwrites the component's state with the old type. The picklist still *shows* the new choice but the sections it controls snap back, with no error anywhere.
+
+Fix: remember which record was initialised (`_initialisedRecordId`) and return early on repeat loads; keep "saved" copies up to date in the success handler so Reset still works (include the type field itself in Reset).
+
+**Why tests missed it:** Jest fires one synthetic `load`, and the first browser check opened a record that was already the new type. **Always test the change path in a real browser** (open a record of type A, switch to B, watch the sections), not just the load path, and add a Jest test that fires `load` again after the change. To see what the form actually emits, add listeners from `page.evaluate` (pierce shadow roots) and log `load` and `change` with timestamps.
+
+---
+
+## A Passing Test Proves Nothing Until It Fails Without the Fix
+
+Before calling a bug fix or an ordering/layout rule done, **break the fix on purpose and run the test**: remove the guard, swap the two blocks, drop the grant. The new test must fail with a clear message, then restore the file and watch it pass. Tests that "pass either way" (guards on behaviour the fix must preserve) are fine, but say so. This caught nothing wrong this time only because it was done; twice it showed a test was not testing what its name claimed. Save the real file first (`cp file ai-logs/x.bak`) and restore it in the same command so a mutation never gets left behind.
+
+Companion habit: **when a Salesforce error is vague, measure instead of guessing.** Write a throwaway `@IsTest` probe (name it `ZZ_Probe_TEST`, delete it afterwards, and delete it from the org too) that returns the evidence in an assertion message: `UserRecordAccess`, `Security.stripInaccessible` removed fields, `Database.update(rec, false)` error codes. It found a root cause in two runs that would have taken a dozen guesses.
+
+---
+
+## Experience Cloud Portal Users: What a Permission Set Can and Cannot Grant
+
+- **A permission set grants object, field, Apex-class, and record-type access. It never grants access to a specific record.** If a signed-in user can read a record but a save fails with `INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY`, the cause is record sharing, not FLS, and `without sharing` on the controller does not help (DML still needs edit access). Confirm with `SELECT HasReadAccess, HasEditAccess FROM UserRecordAccess WHERE UserId = ... AND RecordId = ...`.
+- **To let a portal user edit records tied to their own Contact, use a Sharing Set** (`SharingSet` metadata: `accessLevel Edit`, `object`, `objectField` such as `Contact__c`, `userField Contact`, and `profiles`). It is attached to **profiles, not permission sets**, and deploys as raw MDAPI (`sharingSets/<Name>.sharingSet`, no `-meta.xml`), after the site exists.
+- **"No such column X on entity Y" inside a dynamic `Database.query` can mean the user has no field-level access, not that the field is missing.** Check FLS first. Dynamic queries name fields in several string pieces (SELECT and every WHERE branch), so extract them all at once instead of fixing one per test run.
+- **A dynamic `Database.query` with no access clause can fail with "No such column" for a portal user even when the code is meant to be public.** Add `WITH SYSTEM_MODE` to the query string (or pass `AccessLevel.SYSTEM_MODE`); with it the same query works, measured with a probe. And **deploy the controller you are testing**: a test that fails against stale code in the org looks exactly like a real bug (the org still had the old `USER_MODE` class and the failure pointed at the wrong cause).
+- **Never grant "all fields" on a directory-style object.** Formula fields often expose email, birthdate, phone, or street address. Derive the field list from the queries the controllers actually run (`WITH USER_MODE` ones need grants; `without sharing` ones with no USER_MODE only need class access) and leave required fields out (Salesforce rejects them).
+- **Record types are visible per user, even in `SYSTEM_MODE`.** `getRecordTypeInfosByDeveloperName()` returns only record types the running user can see, so a public (system-mode) controller still returns nothing to a guest unless a permission set makes the record type visible. A System Administrator may not see a record type that is granted only by a permission set: give the test's setup user that permission set, or inserts fail with `INVALID_CROSS_REFERENCE_KEY`.
+- **`System.runAs` in a test enforces object/field/record access, but NOT Apex class access.** Prove class grants by reading `SetupEntityAccess` for the permission set, and prove the rest by calling the controllers inside `runAs(portalUser)`.
+- **A guest sharing rule needs the site's guest user to exist** ("Specify a guest user's nickname for the guestUser field" otherwise). See the CumulusCI skill for where to deploy it.
+
+---
+
 ## Jira Work: See the `jira-crm-workflow` Skill
 
 Jira process (inactive-sprint workflow), `acli` usage patterns, and the MCP markdown-comment bug below are all consolidated in the dedicated `jira-crm-workflow` skill — load that instead of duplicating it here.
@@ -299,6 +330,8 @@ A `<required>true</required>` Lookup field must specify `<deleteConstraint>Restr
 
 - **Salesforce rejects `fieldPermissions` entries for required fields entirely** (not just ignores them) — deploy fails with `"You cannot deploy to a required field."` Before writing permission set XML for a new object, scan all its `<required>true</required>` fields and exclude them from `fieldPermissions` — they're implicitly always accessible to anyone who can create/edit the record at all.
 - **All `fieldPermissions` elements must be grouped together, and all `objectPermissions` elements must be grouped together** — interspersing them (e.g. `fieldPermissions, objectPermissions, fieldPermissions`) causes an XML schema validation error (`"Element X is duplicated at this location"`), since the schema expects each element type in one contiguous block.
+- **`<description>` is limited to 255 characters** and the deploy fails with "data value too large". Put the explanation in the project docs, not the metadata.
+- A picklist's **blank "--None--" choice stores an empty value**. If code quietly turns blank into a default, users who pick "--None--" get the default and think the control is broken. Decide deliberately what blank means, make every layer (Apex, component, editor preview) agree, and say it in the field's help text. New records still get the picklist's `default="true"` value; **an `@IsTest` record built without setting the field also gets that default**, so to test "blank" set it to `null` explicitly and re-query.
 
 ---
 
@@ -351,9 +384,88 @@ A `faultConnector` on an `emailSimple` action call in a record-triggered Flow ca
 
 ---
 
-- **Line endings are LF (`\n`) natively** — no CRLF concerns when editing locally. If files originated on Windows, run `dos2unix <file>` before processing to strip stray `\r` characters.
+- **Line endings are LF (`\n`) natively** — no CRLF concerns when editing locally. If files originated on Windows, run `dos2unix <file>` (installed via brew) to strip stray `\r`; `sed -i 's/\r$//' <file>` also works.
 - **Never assert on file size or line count** as a proxy for "did the deploy change anything" — diff content directly instead.
 - **Bazzite uses an immutable base (`rpm-ostree`)** — system-level package installs require `rpm-ostree install <pkg>` followed by a reboot, or use `toolbox`/`distrobox` for a mutable environment. Prefer user-space installs (`pip`, `npm`, `flatpak`) when possible to avoid reboots.
 - **Environment variables** use standard bash syntax: `export MY_VAR=value` to set, `$MY_VAR` or `${MY_VAR}` to reference.
 - **Paths use forward slashes** (`/home/user/project`), not backslashes.
 - **Permissions:** use `chmod`/`chown` for file permissions; scripts that need to be executable need `chmod +x <script>`.
+
+---
+
+## LWC / Lightning Page Gotchas Learned On UST-EASY-LWC
+
+- **`slds-card` on a plain `div` can lose your border and shadow inside a Lightning page tab.** The card looked fine in a
+  `lightning-card`, then vanished once the component sat in a `flexipage:tabset`. Debug trick that found it in minutes:
+  remove the class in the browser and re-read `getComputedStyle`; if your rule suddenly applies, that class is the culprit.
+  Give the element your own class and put the border, radius and shadow in your CSS.
+- **Synthetic shadow DOM:** `shadowRoot.styleSheets` throws; read `document.styleSheets` (component CSS is placed in
+  `<head>` with an `lwc-xxxx` attribute selector). Use a recursive `deep(root, selector)` helper to pierce shadow roots.
+- **A tab set on an App page is metadata too:** `flexipage:tabset` points at `Facet` regions that hold `flexipage:tab`
+  items, which point at more `Facet` regions holding components. People edit pages in the UI, so the repo copy goes
+  stale; retrieve the page before touching it.
+- **Playwright against Lightning after a deploy:** clear IndexedDB, localStorage, sessionStorage and Cache storage,
+  load the page, wait about 25 seconds, and reload once (Lightning re-bootstraps after storage is cleared). Odd
+  "state resets by itself" results right after clearing storage are usually that re-bootstrap, not your code. Measure
+  before guessing: bounding boxes and computed styles settled two alignment questions in one call each.
+- **Multi-select picklists:** Salesforce allows only one default value (the deploy fails with "Multiple default values"),
+  and a default never backfills existing records. Design "blank means all" and say so in the field help text. A new field
+  is invisible without field-level security, so ship a permission set; the admin also has to add it to the page layout.
+  Read admin-set configuration in Apex with `WITH SYSTEM_MODE` (applicant data stays in user mode) so reviewers do not
+  need field access. Apex that describes a new field will not compile until the field is deployed first.
+- **Two components that need the same record on selection** (for example a read-only card and an edit form): share one
+  in-flight request in a utility module (a `Map` of promises keyed by id, cleared in `finally`) so they cannot both
+  insert it. Also ignore a slow response if a newer selection has replaced it.
+- **`sf project deploy start` `SourceConflictError` is not always a real conflict.** Retrieve the org copy to a folder
+  inside the project (`--output-dir` outside the project is rejected), diff it against what you last deployed, and only
+  then use `--ignore-conflicts`. If the org copy differs in ways you did not make (a UI-edited flexipage), stop and
+  retrieve it instead.
+
+---
+
+## How To Work: Editing, Checking, Tools (Lessons From An RFI-Form Session)
+
+### Editing files
+- **Use the `write` tool's `strReplace` for edits.** One call per change; send independent changes in parallel. Do not reach for a Python heredoc just to replace text. A heredoc is only for a mechanical change across many files, and then it must `assert s.count(old) == 1` before writing.
+- **Everything in `oldStr` must be in `newStr`, or be meant to go.** A replace that quoted a neighbouring line (`<template if:true={x}>`) and did not repeat it silently deleted that opening tag. After any edit to a template or nested markup, read the region back.
+- **Do not put the test run in the same parallel batch as the edit it tests.** The tests ran against the old files and reported a misleading failure.
+- **Match the file's naming, not your habit.** Check neighbouring constants and helpers first. In the RFI Apex classes constants are camelCase (`splitAddressQuestions`), and the style table above applies; `UPPER_CASE` constants and `(a, b) =>` lambda names break it.
+
+### The IDE (IDEA / Illuminated Cloud) MCP: use it, it is cheap
+Call it through `execute_tool` with `--paramName value` arguments. Confirmed to work:
+- `get_file_problems --filePath <path>`: runs Illuminated Cloud's inspections on one file (Javadoc tags, unused code, type errors). **Run it on every Apex file you changed before reporting done.** Known noise: "Constructor is not visible" for a private inner class with an implicit constructor, and `Cacheable != cacheable`; ignore those, fix anything else.
+- `get_symbol_info --filePath <p> --line <n> --column <n>`: the doc comment and signature of a symbol, without opening the file.
+- `search_text --q <text>`: project-wide text search with line and column. It also indexes `ai-logs/`, so expect noise there.
+- `get_run_configurations`, `get_project_modules`: what the IDE can run.
+- `reformat_file --files ...`: needs a `files` argument; check the IDE's code style before using it on files you did not write.
+Prefer these over `grep`/`sed` pipelines when you want references, problems or documentation. Prefer the `salesforcedx` MCP tools (`run_apex_test`, `run_code_analyzer`, `run_soql_query`, `deploy_metadata`) when you want structured results rather than a `tee` + `grep` of CLI text.
+
+### Checking a Salesforce change before saying "done"
+1. **Apex**: deploy (`cci task run deploy --path force-app/main/default/classes --org dev`, and `--path force-app/test/default/classes`), then run *all* test classes, not only the new one (`ls force-app/test/default/classes/*.cls` into `ai-logs/classes.txt`, then `sf apex run test --class-names "$(cat ai-logs/classes.txt)" ...`). Then `get_file_problems` on each changed class.
+2. **LWC**: `npx jest force-app/main/default/lwc` for the whole folder. If a suite fails, run it alone and read the error; check whether it also fails without your change before reporting it.
+3. **Break the test on purpose** (see "A Passing Test Proves Nothing" above) for every new behaviour test, copying the file to `ai-logs/` first.
+4. **Run Code Analyzer** (`run_code_analyzer` on the changed files) and, for UI work, the matching review skills: `experience-accessibility-validate`, `design-systems-slds-validate` (it flags hard-coded colours such as an overlay's `rgba(...)`), `experience-lwc-security-validate`, `experience-lwc-rtl-validate`. These were available and not used; a UI change is not finished without them.
+5. **Look at it in a browser** for any user-visible change (Playwright or chrome-devtools MCP, against the scratch org via `sf org open --url-only`). Jest cannot prove visual or validation behaviour (next section). If you cannot look, say so plainly.
+
+### What Jest stubs for `lightning-*` do NOT prove
+- Stubs hold the properties you set (`pattern`, `maxlength`, `min`, `step`) and do nothing with them. They do not validate, and `checkValidity()` returns nothing, so tests must define it (see the helpers in `rfiForm.submit.test.js`). A test that "the pattern is set" is not a test that the pattern works.
+- Test a `pattern` string with a real `RegExp` using the **`v` flag** (browsers compile the `pattern` attribute with `v`, which is stricter about `( ) [ ] { } - \` inside a class), anchored as `^(?:pattern)$`.
+- Properties on a stub are not reflected as attributes, so `querySelector('lightning-combobox[name="x"]')` finds nothing. Select by tag and read the property, or find by `label`.
+- Custom elements do not show real layout, so sticky positioning, overlays and gray-outs need a browser.
+
+### Deriving form behaviour from the Salesforce field, not from memory
+- Read limits from `Schema.DescribeFieldResult`: `getType()` (number, date, picklist), `getLength()` (text), `getPrecision()` and `getScale()` (numbers). That one source then covers every question mapped to the field, including custom questions, with no per-question code. Keep a short explicit list only for what the type cannot say (a Text field that holds a four-digit year).
+- Send values in the type the server expects: a number box returns text, so convert to a number; a Date field needs `YYYY-MM-DD`; a Text field that holds digits stays text.
+- A restricted picklist behind an admin tool (the Question Manager reads `Fields_to_Display__c` values) cannot be reshaped from a scratch org without a metadata change that admins own. Filter and add in the component and ship the list from Apex instead of editing the picklist.
+- `lightning-input-address` with `show-compact-address` draws the street as an 80-character one-line input plus a separate `subpremise` line. If the target is a TextArea (such as `Mailing_Street__c`), join the two with `\n`; the change event carries `subpremise`.
+- `developer.salesforce.com` component pages return 403 to `web_fetch`. Use `explore_lbc_components` for base component APIs and the `platform-docs-get` skill for other Salesforce docs.
+
+### Terminal tools: installed, missing, and traps
+- **Installed and worth using more:** `rg`, `fd`, `jq`, `bat`, `delta`, `just`, `xmllint` (read metadata XML with `xmllint --xpath`), `sqlite3`, `gh`, plus (installed via brew, 2026-11) `yq` v4 (YAML, JSON and XML: `yq -p xml -o xml` for metadata, plain `yq` for `cumulusci.yml` and Snowfakery recipes), `sd` (find and replace with plain syntax; use it instead of a Python script for simple replacements), `dos2unix`, and `prettier` 3 (global).
+- **`sg` is NOT ast-grep on this machine.** `/usr/bin/sg` is `newgrp`. Nothing is needed from the user: use the `code` tool's `pattern_search` / `pattern_rewrite` (ast-grep underneath) for structural changes.
+- **`prettier` Apex setup (UST-Salesforce-RFI):** `prettier` and `prettier-plugin-apex` are devDependencies, `.prettierrc` applies the Apex parser only to `*.cls` and `*.trigger` (4 spaces, width 140), and `npm run format:apex:check` / `format:apex` run it. The plugin always puts `@AuraEnabled` and other annotations on their own line and cannot be told otherwise, so it would reformat about a third of `rfiFormController.cls`. Never run `format:apex` on existing files unless the user asks for a dedicated formatting pass (its own commit); use `--check` on a single file or format a brand-new file instead. Illuminated Cloud's own formatter may disagree with it.
+- **Still not installed, only if needed (ask before installing; user-space only, no `rpm-ostree`):** `difftastic` (structural diffs of Apex and JS), `shellcheck` (for `scripts/` shell), `hyperfine` (only for timing).
+- **Install route:** the user installs with `brew install <tool>`, or `pipx`/`npm` for the Node ones. Do not install anything yourself and do not use `dnf`.
+
+### Know the limits of what you checked
+State in the final message what was verified by what: Apex tests against the scratch org, Jest against stubs, a regex against a real `RegExp`, and what was only reasoned about (real browser behaviour, `lightning-input` validation, guest-user access). Name the ones that were only reasoned about; those are where the next bug is.

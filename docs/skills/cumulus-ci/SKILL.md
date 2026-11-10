@@ -150,6 +150,8 @@ sf data query `
 - **`System.runAs()` for permission-dependent tests** — create a fresh user and wrap assertions to avoid elevated-permission interference from the test-running user.
 - **Use `replace_string_in_file` over `insert_edit_into_file`** for targeted test edits — avoids duplicate method creation.
 - **Do not create helper Python scripts** to generate test class content — edit the `.cls` file directly.
+- **Testing as a signed-in portal user:** create a role-holding owner (`UserRole` plus a System Administrator with `UserRoleId`), create the Account and Contacts inside `System.runAs(owner)`, create the community `User` and `PermissionSetAssignment` in another `runAs(owner)` block (setup and non-setup DML cannot share a transaction, and a widget or any other custom record inserted after creating the role needs its own `runAs` too), then call the controllers inside `System.runAs(portalUser)`. Find a profile with `[SELECT Id FROM Profile WHERE UserLicense.Name = 'Customer Community Login' LIMIT 1]`. Create **one portal user per test method**: a scratch org has five community licenses and the sample users may already use four. Remember `runAs` does not enforce Apex class access; assert that from `SetupEntityAccess`.
+- **Defaults leak into tests:** a record inserted without a picklist value gets that field's default. To test a blank value, set it to `null` explicitly and re-query to confirm.
 
 ---
 
@@ -183,6 +185,38 @@ sf data query --query "SELECT Id, NewField__c FROM Object__c LIMIT 1" --target-o
 - **Iterative deploy-fix cycle** — when `cci flow run dev_org` fails, delete the scratch org before re-running to avoid stale state: `cci org scratch_delete dev`.
 - **Permission Set field exclusions** — cannot include `fieldPermissions` for required fields, Master-Detail fields, or Rollup Summary fields. Scan ALL `<required>true</required>` fields in object metadata upfront.
 - **No `--` inside XML comments** — the XML spec forbids `--` between `<!--` and `-->`. Use `:` or another separator instead of `--` in comment text (e.g. avoid "read-only" written as "read--only", or phrases like "editable -- users can").
+
+---
+
+## Metadata That Needs the Experience Site (or Anything Created Later in the Flow) Must Not Ride With `force-app`
+
+`deploy_unmanaged` pushes all of `force-app` early; `create_community` runs later in `config_dev`. Anything that references the site's guest user or its network fails the whole deploy if it is in `force-app`: a **`sharingGuestRules`** rule ("Specify a guest user's nickname for the guestUser field", reproduced), a **Sharing Set**. Put it in `unpackaged/config/<name>/` as a **raw MDAPI folder** (`package.xml` plus `sharingRules/<Object>.sharingRules`, no `-meta.xml`), add a `cumulusci.tasks.salesforce.Deploy` task with `unmanaged: True`, and slot it into the flow after `create_community` (for example step 5.7). Test it with `cci task run <task> --check_only True` first, then verify in the org (retrieve it back), since "Succeeded" is not proof (see the onboarding skill). Reusing a rule name with a different `sharedTo` fails with "Cannot change SharedTo when updating an existing Sharing Rule": delete and recreate instead.
+
+---
+
+## Sample Data: Datasets, Snowfakery, and the Things the Loader Cannot Do
+
+`load_sample_data` loads `datasets/<name>/<name>.recipe.yml` (Snowfakery) for an org whose config name matches (`dev`) or `default`, and `config_dev` already calls it as step 90. Use `include_file: ../other/other.recipe.yml` to build one dataset from smaller ones, and `cci task run load_sample_data --dataset <name>` to load a piece. A `<name>.load.yml` next to the recipe controls load rules.
+
+- **`User` cannot be loaded by a recipe.** CumulusCI's `check_required` demands every non-nillable, non-defaulted createable field, which for `User` is ~119 permission and preference checkboxes. Create users in anonymous Apex (`AnonymousApexTask` with `path:`), keyed off the Contacts the recipe loaded, and make it idempotent (skip existing, assign permission sets in the same script).
+- **Mixed DML:** a `User` or `PermissionSetAssignment` (setup objects) and a `Contact` (non-setup) cannot change in one transaction. Use two scripts and two tasks (create users, then link them back).
+- **Usernames are unique across every Salesforce org.** Derive a key from the admin username (`substringBefore('@')`, lowercase, no dashes) and end each username with it.
+- **Users cannot be deleted**, and a Contact with a user cannot be deleted. Plan for "delete the scratch org to reset", and keep a reset task (`DeleteData` with `where: "Name LIKE '[Sample]%'"`) only for records that can go. Scratch orgs have five of each community license: create fewer users than that.
+- **Pairs of records:** two separate `count: 12` blocks both resolve `reference:` to the *latest* record of the other block (all 12 children ended up on one parent). Build the child as `friends:` of the parent. Inside `friends`, `child_index` is the friend's own index (always 0), so derive per-row values from a parent field instead.
+- **`SalesforceQuery`:** a query that selects one field returns the bare value (a string), so there is no `.Username` on the end. `find_record` is "memorable" and hands formulas an id string; use `random_record(from=..., fields=..., where=...)` with a `where` that matches one row.
+- **Cycles** (Contact to Directory and back): list both with `reference:` and CumulusCI loads one side then updates the other; no extra work.
+- **Restricted picklists with inactive values** reject the load. Check `describe` for `active` values; do not "fix" it by activating values in a scratch org.
+- **The standalone `snowfakery` CLI in the pipx venv is broken** (`No module named 'pkg_resources'`). Do not modify the venv. Generate offline with the Python API and the *CumulusCI* org name (not the sf alias):
+
+  ```python
+  # /var/home/<user>/.local/share/pipx/venvs/cumulusci/bin/python
+  from snowfakery import generate_data
+  generate_data("datasets/dev/dev.recipe.yml",
+                plugin_options={"org_name": "dev", "project_path": "."},
+                output_format="json", output_file="ai-logs/sf-gen/dev.json")
+  ```
+
+  Then validate before loading: for each generated row check every field exists and is createable, picklist values are active (restricted fields), text fits `length`, and referenced rows exist. That caught 32 bad picklist values before anything touched the org. After a real load, **query the data, not the row counts**: counts did not reveal that every directory record pointed at the same Contact.
 
 ---
 
